@@ -1,0 +1,220 @@
+<div class="container">
+  <div class="col-md-12">
+    <h1>Provider List</h1>
+    <button class="btn btn-success" (click)="showAddProviderForm()">
+      <i class="fa fa-plus"></i>&nbsp;Add New Provider
+    </button>
+    <br />
+    <br />
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th class="text-center">Provider ID</th>
+          <th class="text-center">First Name</th>
+          <th class="text-center">Last Name</th>
+          <th class="text-center">Address</th>
+          <th class="text-center">City</th>
+          <th class="text-center">Zip Code</th>
+          <th class="text-center">Active</th>
+          <th class="text-center">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let provider of providersService.providerList">
+          <td>{{ provider.providerId }}</td>
+          <td>{{ provider.firstName }}</td>
+          <td>{{ provider.lastName }}</td>
+          <td>{{ provider.address }}</td>
+          <td>{{ provider.city }}</td>
+          <td>{{ provider.zipCode }}</td>
+          <td>{{ provider.active }}</td>
+          <td>
+            <button class="bn btn-info" placement="top">
+              <!-- just diplay a readonly form of all properties-->
+              <i class="fa fa-eye"></i>
+            </button>
+            <button class="bn btn-info" (click)="showEditProviderForm(provider)">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button class="bn btn-danger" (click)="removeProvider(provider)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn btn-success" (click)="showAddProviderForm()">
+      <i class="fa fa-plus"></i>&nbsp;Add New Provider
+    </button>
+    <br>
+    <br>
+    <form *ngIf="providerForm">
+      <h2>Add New Provider</h2>
+      <table class="table table-bordered table-striped table-hover">
+        <!--
+             <tr>
+                 <td>ProviderId</td><td><input type="text" name="providerId" [(ngModel)]="newProvider.providerId"></td>
+             </tr>
+         -->
+        <tr>
+          <td align="right">&nbsp;FirstName</td>
+          <td><input type="text" name="FirstName" [(ngModel)]="newProvider.FirstName"></td>
+          <td align="right">&nbsp;LastName</td>
+          <td><input type="text" name="LastName" [(ngModel)]="newProvider.LastName"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;Address</td>
+          <td><input type="text" name="Address" [(ngModel)]="newProvider.Address"></td>
+          <td align="right">&nbsp;City</td>
+          <td><input type="text" name="City" [(ngModel)]="newProvider.City"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;ZipCode</td>
+          <td><input type="text" name="ZipCode" [(ngModel)]="newProvider.ZipCode"></td>
+          <td align="right">&nbsp;Active</td>
+          <td><input type="checkbox" name="Active" [(ngModel)]="newProvider.Active"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;Gender</td>
+          <td><input type="text" name="Gender" [(ngModel)]="newProvider.Gender"></td>
+          <td align="right">&nbsp;HireDate</td>
+          <td><input type="text" name="HireDate" [(ngModel)]="newProvider.HireDate"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;EmailAddress</td>
+          <td><input type="text" name="EmailAddr" [(ngModel)]="newProvider.EmailAddr"></td>
+          <td align="right">&nbsp;Notes</td>
+          <td><input type="text" name="Notes" [(ngModel)]="newProvider.notes">
+        </tr>
+        <tr>
+          <td align="right">&nbsp;CreateDate</td>
+          <td><input type="text" name="CreateDate" [(ngModel)]="newProvider.CreateDate"></td>
+          <td align="right">&nbsp;CreatedBy</td>
+          <td><input type="text" name="CreatedBy" [(ngModel)]="newProvider.CreatedBy"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;LastModifiedDate</td>
+          <td><input type="text" name="LastModifiedDate" [(ngModel)]="newProvider.LastModifiedDate"></td>
+          <td align="right">&nbsp;LastModifiedBy</td>
+          <td><input type="text" name="LastModifiedBy" [(ngModel)]="newProvider.LastModifiedBy"></td>
+        </tr>
+        <tr>
+          <td colspan=4>
+            <hr />
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <app-provider-svc-code></app-provider-svc-code>
+              </div>
+              <div class="form-group col-md-6">
+                <app-provider-available-shifts></app-provider-available-shifts>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4" style="text-align: center">
+            <button type="button" class="btn btn-warning" (click)="cancelNewProvider()">Cancel</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="saveProvider(newProvider)">Save New Provider</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <form *ngIf="editProviderForm">
+      <h2>Edit ProviderId:({{ editedProvider.providerId }})</h2>
+      <table class="table table-bordered table-striped table-hover">
+        <tr>
+          <td align="right">&nbsp;FirstName</td>
+          <td><input type="text" name="FirstName" [(ngModel)]="editedProvider.FirstName"></td>
+          <td align="right">&nbsp;LastName</td>
+          <td><input type="text" name="LastName" [(ngModel)]="editedProvider.LastName"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;Address</td>
+          <td><input type="text" name="Address" [(ngModel)]="editedProvider.Address"></td>
+          <td align="right">&nbsp;City</td>
+          <td><input type="text" name="City" [(ngModel)]="editedProvider.City"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;ZipCode</td>
+          <td><input type="text" name="ZipCode" [(ngModel)]="editedProvider.ZipCode"></td>
+          <td align="right">&nbsp;Active</td>
+          <td><input type="checkbox" name="Active" [(ngModel)]="editedProvider.Active"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;Gender</td>
+          <td><input type="text" name="Gender" [(ngModel)]="editedProvider.Gender"></td>
+          <td align="right">&nbsp;HireDate</td>
+          <td><input type="text" name="HireDate" [(ngModel)]="editedProvider.HireDate"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;EmailAddress</td>
+          <td><input type="text" name="EmailAddr" [(ngModel)]="editedProvider.EmailAddr"></td>
+          <td align="right">&nbsp;Notes</td>
+          <td><input type="text" name="Notes" [(ngModel)]="editedProvider.Notes"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;CreateDate</td>
+          <td><input type="text" name="CreateDate" [(ngModel)]="editedProvider.CreateDate"></td>
+          <td align="right">&nbsp;CreatedBy</td>
+          <td><input type="text" name="CreatedBy" [(ngModel)]="editedProvider.CreatedBy"></td>
+        </tr>
+        <tr>
+          <td align="right">&nbsp;LastModifiedDate</td>
+          <td><input type="text" name="LastModifiedDate" [(ngModel)]="editedProvider.LastModifiedDate"></td>
+          <td align="right">&nbsp;LastModifiedBy</td>
+          <td><input type="text" name="LastModifiedBy" [(ngModel)]="editedProvider.LastModifiedBy"></td>
+        </tr>
+        <tr>
+          <td colspan=4 style="text-align: center">
+            <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancel</button> &nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" (click)="updateProvider(editedProvider)">Update Provider</button>
+          </td>
+        </tr>
+      </table>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <app-provider-svc-code></app-provider-svc-code>
+        </div>
+        <div class="form-group col-md-6">
+          <app-provider-available-shifts></app-provider-available-shifts>
+        </div>
+      </div>
+
+    </form>
+    <div class="container">
+      <!-- Trigger the modal with a button -->
+      <button type="button" class="btn btn-info btn-lg" (click)="openModal()">Open Modal</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal1" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <form *ngIf="editProviderForm">
+                <h2>Edit ProviderId:({{ editedProvider.providerId }})</h2>
+              </form>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<app-modal [content]="modalContent" [open]="modalOpen">
+  <app-new-provider-form>
+
+  </app-new-provider-form>
+</app-modal>

@@ -1,0 +1,20 @@
+<div class="form-group">
+
+  <label>
+    {{label}}
+  </label>
+  <div class="multi-select">
+  <div class="multi-select-check-all" (click)="selectAllClicked()" [class.is-checked]="allChecked">
+    <span *ngIf="allChecked" class="glyphicon glyphicon-ok option-checkmark"></span>
+    <span *ngIf="!allChecked" class="option-checkmark"> </span>
+    Select All
+  </div>
+    <div class="multi-select-options">
+      <div *ngFor="let o of checkableOptions; let i = index" (click)="select(i,o)" [class.is-checked]="o.isChecked" (onchange)="subscribe($event)">
+        <span *ngIf="o.isChecked" class="glyphicon glyphicon-ok option-checkmark"></span>
+        <span *ngIf="!o.isChecked" class="option-checkmark"> </span>
+        <div class="option">{{o.value}}</div>
+      </div>
+    </div>
+  </div>
+</div>

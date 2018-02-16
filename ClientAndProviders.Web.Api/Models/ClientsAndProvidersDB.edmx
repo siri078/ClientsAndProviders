@@ -1,0 +1,824 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ClientsProvidersDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="1" />
+          <Property Name="Birthdate" Type="datetime" />
+          <Property Name="EmailAddr" Type="nvarchar" MaxLength="100" />
+          <Property Name="GenderPreference" Type="nvarchar" MaxLength="1" />
+          <Property Name="ResponsibleParty" Type="nvarchar" MaxLength="200" />
+          <Property Name="ResponsiblePartyContact" Type="nvarchar" MaxLength="300" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ClientsProvidersDb.dbo.ClientShiftAssignment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ClientShiftAssignment">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="DayOfWeek" />
+          </Key>
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="DayOfWeek" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Shift" Type="varchar" MaxLength="20" />
+          <Property Name="ProviderId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ClientsProvidersDb.dbo.ClientSvcCode' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ClientSvcCode">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="SvcCode" />
+          </Key>
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="SvcCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ProviderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="1" />
+          <Property Name="HireDate" Type="datetime" />
+          <Property Name="EmailAddr" Type="nvarchar" MaxLength="100" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderAvailableShift' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProviderAvailableShift">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="DayOfWeek" />
+          </Key>
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="DayOfWeek" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Shift" Type="varchar" MaxLength="20" />
+          <Property Name="HasBeenScheduled" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderSvcCode' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProviderSvcCode">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="SvcCode" />
+          </Key>
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="SvcCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SvcCode">
+          <Key>
+            <PropertyRef Name="SvcCodeValue" />
+          </Key>
+          <Property Name="SvcCodeValue" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WeekDay">
+          <Key>
+            <PropertyRef Name="DayOfWeek" />
+          </Key>
+          <Property Name="DayOfWeek" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkShift">
+          <Key>
+            <PropertyRef Name="Shift" />
+          </Key>
+          <Property Name="Shift" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ClientShiftAssignment_ClientId">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientShiftAssignment" Type="Self.ClientShiftAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientShiftAssignment">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientShiftAssignment_DayOfWeek">
+          <End Role="WeekDay" Type="Self.WeekDay" Multiplicity="1" />
+          <End Role="ClientShiftAssignment" Type="Self.ClientShiftAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeekDay">
+              <PropertyRef Name="DayOfWeek" />
+            </Principal>
+            <Dependent Role="ClientShiftAssignment">
+              <PropertyRef Name="DayOfWeek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientShiftAssignment_ProviderId">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="0..1" />
+          <End Role="ClientShiftAssignment" Type="Self.ClientShiftAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ClientShiftAssignment">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientShiftAssignment_WorkShift">
+          <End Role="WorkShift" Type="Self.WorkShift" Multiplicity="0..1" />
+          <End Role="ClientShiftAssignment" Type="Self.ClientShiftAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShift">
+              <PropertyRef Name="Shift" />
+            </Principal>
+            <Dependent Role="ClientShiftAssignment">
+              <PropertyRef Name="Shift" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientSvcCode_ClientId">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientSvcCode" Type="Self.ClientSvcCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientSvcCode">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientSvcCode_SvcCodeValue">
+          <End Role="SvcCode" Type="Self.SvcCode" Multiplicity="1" />
+          <End Role="ClientSvcCode" Type="Self.ClientSvcCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SvcCode">
+              <PropertyRef Name="SvcCodeValue" />
+            </Principal>
+            <Dependent Role="ClientSvcCode">
+              <PropertyRef Name="SvcCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderAvailableShift_DayOfWeek">
+          <End Role="WeekDay" Type="Self.WeekDay" Multiplicity="1" />
+          <End Role="ProviderAvailableShift" Type="Self.ProviderAvailableShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeekDay">
+              <PropertyRef Name="DayOfWeek" />
+            </Principal>
+            <Dependent Role="ProviderAvailableShift">
+              <PropertyRef Name="DayOfWeek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderAvailableShift_ProviderId">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="ProviderAvailableShift" Type="Self.ProviderAvailableShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ProviderAvailableShift">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderAvailableShift_WorkShift">
+          <End Role="WorkShift" Type="Self.WorkShift" Multiplicity="0..1" />
+          <End Role="ProviderAvailableShift" Type="Self.ProviderAvailableShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShift">
+              <PropertyRef Name="Shift" />
+            </Principal>
+            <Dependent Role="ProviderAvailableShift">
+              <PropertyRef Name="Shift" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderSvcCode_ProviderId">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="ProviderSvcCode" Type="Self.ProviderSvcCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ProviderSvcCode">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderSvcCode_SvcCodeValue">
+          <End Role="SvcCode" Type="Self.SvcCode" Multiplicity="1" />
+          <End Role="ProviderSvcCode" Type="Self.ProviderSvcCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SvcCode">
+              <PropertyRef Name="SvcCodeValue" />
+            </Principal>
+            <Dependent Role="ProviderSvcCode">
+              <PropertyRef Name="SvcCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClientsProvidersDbModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provider" EntityType="Self.Provider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SvcCode" EntityType="Self.SvcCode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WeekDay" EntityType="Self.WeekDay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkShift" EntityType="Self.WorkShift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientShiftAssignment" EntityType="Self.ClientShiftAssignment" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ClientShiftAssignment].[ClientId] AS [ClientId], 
+    [ClientShiftAssignment].[DayOfWeek] AS [DayOfWeek], 
+    [ClientShiftAssignment].[Shift] AS [Shift], 
+    [ClientShiftAssignment].[ProviderId] AS [ProviderId], 
+    [ClientShiftAssignment].[CreatedDate] AS [CreatedDate], 
+    [ClientShiftAssignment].[CreatedBy] AS [CreatedBy], 
+    [ClientShiftAssignment].[LastModifiedDate] AS [LastModifiedDate], 
+    [ClientShiftAssignment].[LastModifiedBy] AS [LastModifiedBy]
+    FROM [dbo].[ClientShiftAssignment] AS [ClientShiftAssignment]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ClientSvcCode" EntityType="Self.ClientSvcCode" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ClientSvcCode].[ClientId] AS [ClientId], 
+    [ClientSvcCode].[SvcCode] AS [SvcCode], 
+    [ClientSvcCode].[CreatedDate] AS [CreatedDate], 
+    [ClientSvcCode].[CreatedBy] AS [CreatedBy], 
+    [ClientSvcCode].[LastModifiedDate] AS [LastModifiedDate], 
+    [ClientSvcCode].[LastModifiedBy] AS [LastModifiedBy]
+    FROM [dbo].[ClientSvcCode] AS [ClientSvcCode]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProviderAvailableShift" EntityType="Self.ProviderAvailableShift" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProviderAvailableShift].[ProviderId] AS [ProviderId], 
+    [ProviderAvailableShift].[DayOfWeek] AS [DayOfWeek], 
+    [ProviderAvailableShift].[Shift] AS [Shift], 
+    [ProviderAvailableShift].[HasBeenScheduled] AS [HasBeenScheduled], 
+    [ProviderAvailableShift].[CreatedDate] AS [CreatedDate], 
+    [ProviderAvailableShift].[CreatedBy] AS [CreatedBy], 
+    [ProviderAvailableShift].[LastModifiedDate] AS [LastModifiedDate], 
+    [ProviderAvailableShift].[LastModifiedBy] AS [LastModifiedBy]
+    FROM [dbo].[ProviderAvailableShift] AS [ProviderAvailableShift]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ProviderSvcCode" EntityType="Self.ProviderSvcCode" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProviderSvcCode].[ProviderId] AS [ProviderId], 
+    [ProviderSvcCode].[SvcCode] AS [SvcCode], 
+    [ProviderSvcCode].[CreatedDate] AS [CreatedDate], 
+    [ProviderSvcCode].[CreatedBy] AS [CreatedBy], 
+    [ProviderSvcCode].[LastModifiedDate] AS [LastModifiedDate], 
+    [ProviderSvcCode].[LastModifiedBy] AS [LastModifiedBy]
+    FROM [dbo].[ProviderSvcCode] AS [ProviderSvcCode]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ClientShiftAssignment_ClientId" Association="Self.FK_ClientShiftAssignment_ClientId">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientShiftAssignment" EntitySet="ClientShiftAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientShiftAssignment_DayOfWeek" Association="Self.FK_ClientShiftAssignment_DayOfWeek">
+            <End Role="WeekDay" EntitySet="WeekDay" />
+            <End Role="ClientShiftAssignment" EntitySet="ClientShiftAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientShiftAssignment_ProviderId" Association="Self.FK_ClientShiftAssignment_ProviderId">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="ClientShiftAssignment" EntitySet="ClientShiftAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientShiftAssignment_WorkShift" Association="Self.FK_ClientShiftAssignment_WorkShift">
+            <End Role="WorkShift" EntitySet="WorkShift" />
+            <End Role="ClientShiftAssignment" EntitySet="ClientShiftAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientSvcCode_ClientId" Association="Self.FK_ClientSvcCode_ClientId">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientSvcCode" EntitySet="ClientSvcCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientSvcCode_SvcCodeValue" Association="Self.FK_ClientSvcCode_SvcCodeValue">
+            <End Role="SvcCode" EntitySet="SvcCode" />
+            <End Role="ClientSvcCode" EntitySet="ClientSvcCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderAvailableShift_DayOfWeek" Association="Self.FK_ProviderAvailableShift_DayOfWeek">
+            <End Role="WeekDay" EntitySet="WeekDay" />
+            <End Role="ProviderAvailableShift" EntitySet="ProviderAvailableShift" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderAvailableShift_ProviderId" Association="Self.FK_ProviderAvailableShift_ProviderId">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="ProviderAvailableShift" EntitySet="ProviderAvailableShift" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderAvailableShift_WorkShift" Association="Self.FK_ProviderAvailableShift_WorkShift">
+            <End Role="WorkShift" EntitySet="WorkShift" />
+            <End Role="ProviderAvailableShift" EntitySet="ProviderAvailableShift" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderSvcCode_ProviderId" Association="Self.FK_ProviderSvcCode_ProviderId">
+            <End Role="Provider" EntitySet="Provider" />
+            <End Role="ProviderSvcCode" EntitySet="ProviderSvcCode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderSvcCode_SvcCodeValue" Association="Self.FK_ProviderSvcCode_SvcCodeValue">
+            <End Role="SvcCode" EntitySet="SvcCode" />
+            <End Role="ProviderSvcCode" EntitySet="ProviderSvcCode" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClientsProvidersDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Birthdate" Type="DateTime" Precision="3" />
+          <Property Name="EmailAddr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GenderPreference" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ResponsibleParty" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ResponsiblePartyContact" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ClientShiftAssignments" Relationship="Self.FK_ClientShiftAssignment_ClientId" FromRole="Client" ToRole="ClientShiftAssignment" />
+          <NavigationProperty Name="ClientSvcCodes" Relationship="Self.FK_ClientSvcCode_ClientId" FromRole="Client" ToRole="ClientSvcCode" />
+        </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ProviderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="HireDate" Type="DateTime" Precision="3" />
+          <Property Name="EmailAddr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProviderAvailableShifts" Relationship="Self.FK_ProviderAvailableShift_ProviderId" FromRole="Provider" ToRole="ProviderAvailableShift" />
+          <NavigationProperty Name="ProviderSvcCodes" Relationship="Self.FK_ProviderSvcCode_ProviderId" FromRole="Provider" ToRole="ProviderSvcCode" />
+        </EntityType>
+        <EntityType Name="SvcCode">
+          <Key>
+            <PropertyRef Name="SvcCodeValue" />
+          </Key>
+          <Property Name="SvcCodeValue" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ClientSvcCodes" Relationship="Self.FK_ClientSvcCode_SvcCodeValue" FromRole="SvcCode" ToRole="ClientSvcCode" />
+          <NavigationProperty Name="ProviderSvcCodes" Relationship="Self.FK_ProviderSvcCode_SvcCodeValue" FromRole="SvcCode" ToRole="ProviderSvcCode" />
+        </EntityType>
+        <EntityType Name="WeekDay">
+          <Key>
+            <PropertyRef Name="DayOfWeek" />
+          </Key>
+          <Property Name="DayOfWeek" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ClientShiftAssignments" Relationship="Self.FK_ClientShiftAssignment_DayOfWeek" FromRole="WeekDay" ToRole="ClientShiftAssignment" />
+          <NavigationProperty Name="ProviderAvailableShifts" Relationship="Self.FK_ProviderAvailableShift_DayOfWeek" FromRole="WeekDay" ToRole="ProviderAvailableShift" />
+        </EntityType>
+        <EntityType Name="WorkShift">
+          <Key>
+            <PropertyRef Name="Shift" />
+          </Key>
+          <Property Name="Shift" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ClientShiftAssignments" Relationship="Self.FK_ClientShiftAssignment_WorkShift" FromRole="WorkShift" ToRole="ClientShiftAssignment" />
+          <NavigationProperty Name="ProviderAvailableShifts" Relationship="Self.FK_ProviderAvailableShift_WorkShift" FromRole="WorkShift" ToRole="ProviderAvailableShift" />
+        </EntityType>
+        <EntityType Name="ClientShiftAssignment">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="DayOfWeek" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="DayOfWeek" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Shift" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProviderId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ClientSvcCode">
+          <Key>
+            <PropertyRef Name="ClientId" />
+            <PropertyRef Name="SvcCode" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="SvcCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProviderAvailableShift">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="DayOfWeek" />
+          </Key>
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
+          <Property Name="DayOfWeek" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Shift" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HasBeenScheduled" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProviderSvcCode">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="SvcCode" />
+          </Key>
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
+          <Property Name="SvcCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_ClientShiftAssignment_ClientId">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientShiftAssignment" Type="Self.ClientShiftAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientShiftAssignment">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientSvcCode_ClientId">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientSvcCode" Type="Self.ClientSvcCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="ClientSvcCode">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientShiftAssignment_ProviderId">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="0..1" />
+          <End Role="ClientShiftAssignment" Type="Self.ClientShiftAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ClientShiftAssignment">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderAvailableShift_ProviderId">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="ProviderAvailableShift" Type="Self.ProviderAvailableShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ProviderAvailableShift">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderSvcCode_ProviderId">
+          <End Role="Provider" Type="Self.Provider" Multiplicity="1" />
+          <End Role="ProviderSvcCode" Type="Self.ProviderSvcCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="ProviderSvcCode">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientSvcCode_SvcCodeValue">
+          <End Role="SvcCode" Type="Self.SvcCode" Multiplicity="1" />
+          <End Role="ClientSvcCode" Type="Self.ClientSvcCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SvcCode">
+              <PropertyRef Name="SvcCodeValue" />
+            </Principal>
+            <Dependent Role="ClientSvcCode">
+              <PropertyRef Name="SvcCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderSvcCode_SvcCodeValue">
+          <End Role="SvcCode" Type="Self.SvcCode" Multiplicity="1" />
+          <End Role="ProviderSvcCode" Type="Self.ProviderSvcCode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SvcCode">
+              <PropertyRef Name="SvcCodeValue" />
+            </Principal>
+            <Dependent Role="ProviderSvcCode">
+              <PropertyRef Name="SvcCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientShiftAssignment_DayOfWeek">
+          <End Role="WeekDay" Type="Self.WeekDay" Multiplicity="1" />
+          <End Role="ClientShiftAssignment" Type="Self.ClientShiftAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeekDay">
+              <PropertyRef Name="DayOfWeek" />
+            </Principal>
+            <Dependent Role="ClientShiftAssignment">
+              <PropertyRef Name="DayOfWeek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderAvailableShift_DayOfWeek">
+          <End Role="WeekDay" Type="Self.WeekDay" Multiplicity="1" />
+          <End Role="ProviderAvailableShift" Type="Self.ProviderAvailableShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WeekDay">
+              <PropertyRef Name="DayOfWeek" />
+            </Principal>
+            <Dependent Role="ProviderAvailableShift">
+              <PropertyRef Name="DayOfWeek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientShiftAssignment_WorkShift">
+          <End Role="WorkShift" Type="Self.WorkShift" Multiplicity="0..1" />
+          <End Role="ClientShiftAssignment" Type="Self.ClientShiftAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShift">
+              <PropertyRef Name="Shift" />
+            </Principal>
+            <Dependent Role="ClientShiftAssignment">
+              <PropertyRef Name="Shift" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProviderAvailableShift_WorkShift">
+          <End Role="WorkShift" Type="Self.WorkShift" Multiplicity="0..1" />
+          <End Role="ProviderAvailableShift" Type="Self.ProviderAvailableShift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkShift">
+              <PropertyRef Name="Shift" />
+            </Principal>
+            <Dependent Role="ProviderAvailableShift">
+              <PropertyRef Name="Shift" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ClientsProvidersDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Providers" EntityType="Self.Provider" />
+          <EntitySet Name="SvcCodes" EntityType="Self.SvcCode" />
+          <EntitySet Name="WeekDays" EntityType="Self.WeekDay" />
+          <EntitySet Name="WorkShifts" EntityType="Self.WorkShift" />
+          <EntitySet Name="ClientShiftAssignments" EntityType="Self.ClientShiftAssignment" />
+          <EntitySet Name="ClientSvcCodes" EntityType="Self.ClientSvcCode" />
+          <EntitySet Name="ProviderAvailableShifts" EntityType="Self.ProviderAvailableShift" />
+          <EntitySet Name="ProviderSvcCodes" EntityType="Self.ProviderSvcCode" />
+          <AssociationSet Name="FK_ClientShiftAssignment_ClientId" Association="Self.FK_ClientShiftAssignment_ClientId">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientShiftAssignment" EntitySet="ClientShiftAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientSvcCode_ClientId" Association="Self.FK_ClientSvcCode_ClientId">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ClientSvcCode" EntitySet="ClientSvcCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientShiftAssignment_ProviderId" Association="Self.FK_ClientShiftAssignment_ProviderId">
+            <End Role="Provider" EntitySet="Providers" />
+            <End Role="ClientShiftAssignment" EntitySet="ClientShiftAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderAvailableShift_ProviderId" Association="Self.FK_ProviderAvailableShift_ProviderId">
+            <End Role="Provider" EntitySet="Providers" />
+            <End Role="ProviderAvailableShift" EntitySet="ProviderAvailableShifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderSvcCode_ProviderId" Association="Self.FK_ProviderSvcCode_ProviderId">
+            <End Role="Provider" EntitySet="Providers" />
+            <End Role="ProviderSvcCode" EntitySet="ProviderSvcCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientSvcCode_SvcCodeValue" Association="Self.FK_ClientSvcCode_SvcCodeValue">
+            <End Role="SvcCode" EntitySet="SvcCodes" />
+            <End Role="ClientSvcCode" EntitySet="ClientSvcCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderSvcCode_SvcCodeValue" Association="Self.FK_ProviderSvcCode_SvcCodeValue">
+            <End Role="SvcCode" EntitySet="SvcCodes" />
+            <End Role="ProviderSvcCode" EntitySet="ProviderSvcCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientShiftAssignment_DayOfWeek" Association="Self.FK_ClientShiftAssignment_DayOfWeek">
+            <End Role="WeekDay" EntitySet="WeekDays" />
+            <End Role="ClientShiftAssignment" EntitySet="ClientShiftAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderAvailableShift_DayOfWeek" Association="Self.FK_ProviderAvailableShift_DayOfWeek">
+            <End Role="WeekDay" EntitySet="WeekDays" />
+            <End Role="ProviderAvailableShift" EntitySet="ProviderAvailableShifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientShiftAssignment_WorkShift" Association="Self.FK_ClientShiftAssignment_WorkShift">
+            <End Role="WorkShift" EntitySet="WorkShifts" />
+            <End Role="ClientShiftAssignment" EntitySet="ClientShiftAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProviderAvailableShift_WorkShift" Association="Self.FK_ProviderAvailableShift_WorkShift">
+            <End Role="WorkShift" EntitySet="WorkShifts" />
+            <End Role="ProviderAvailableShift" EntitySet="ProviderAvailableShifts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClientsProvidersDbModelStoreContainer" CdmEntityContainer="ClientsProvidersDbEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="ClientsProvidersDbModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="EmailAddr" ColumnName="EmailAddr" />
+                <ScalarProperty Name="GenderPreference" ColumnName="GenderPreference" />
+                <ScalarProperty Name="ResponsibleParty" ColumnName="ResponsibleParty" />
+                <ScalarProperty Name="ResponsiblePartyContact" ColumnName="ResponsiblePartyContact" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Providers">
+            <EntityTypeMapping TypeName="ClientsProvidersDbModel.Provider">
+              <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="EmailAddr" ColumnName="EmailAddr" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SvcCodes">
+            <EntityTypeMapping TypeName="ClientsProvidersDbModel.SvcCode">
+              <MappingFragment StoreEntitySet="SvcCode">
+                <ScalarProperty Name="SvcCodeValue" ColumnName="SvcCodeValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WeekDays">
+            <EntityTypeMapping TypeName="ClientsProvidersDbModel.WeekDay">
+              <MappingFragment StoreEntitySet="WeekDay">
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkShifts">
+            <EntityTypeMapping TypeName="ClientsProvidersDbModel.WorkShift">
+              <MappingFragment StoreEntitySet="WorkShift">
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientShiftAssignments">
+            <EntityTypeMapping TypeName="ClientsProvidersDbModel.ClientShiftAssignment">
+              <MappingFragment StoreEntitySet="ClientShiftAssignment">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientSvcCodes">
+            <EntityTypeMapping TypeName="ClientsProvidersDbModel.ClientSvcCode">
+              <MappingFragment StoreEntitySet="ClientSvcCode">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="SvcCode" ColumnName="SvcCode" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProviderAvailableShifts">
+            <EntityTypeMapping TypeName="ClientsProvidersDbModel.ProviderAvailableShift">
+              <MappingFragment StoreEntitySet="ProviderAvailableShift">
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="HasBeenScheduled" ColumnName="HasBeenScheduled" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProviderSvcCodes">
+            <EntityTypeMapping TypeName="ClientsProvidersDbModel.ProviderSvcCode">
+              <MappingFragment StoreEntitySet="ProviderSvcCode">
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="SvcCode" ColumnName="SvcCode" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

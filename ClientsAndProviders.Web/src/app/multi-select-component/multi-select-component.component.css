@@ -1,0 +1,35 @@
+.multi-select {
+    background-color:#fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align:left;
+    height:122px;
+  }
+  .multi-select-check-all {
+    
+    border-bottom: 1px solid #ccc;
+  }
+  .multi-select-options {
+    min-width:100px;
+    overflow-y: scroll;
+    height: 96px;
+  }
+  .option {
+      display:inline-block;
+      cursor:pointer;
+      padding-right:8px;
+  }
+  .option-checkmark {
+    color: #716e6e;
+    padding-left:3px;
+    font-size:11px;
+    display:inline-block;
+    width:11px;
+  }
+  .is-checked {
+    background-color: #e4e0e0;
+  }
+  .form-group {
+    margin:10px;
+  }
+  
