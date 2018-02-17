@@ -1,0 +1,78 @@
+<mat-dialog-content>
+  <form>
+    <h2>ProviderId:({{ viewProvider.providerId }})</h2>
+    <fieldset ng-disabled="isEditable">
+      <input type="text" name="FirstName" [(ngModel)]="viewProvider.FirstName">
+      <input type="text" name="LastName" [(ngModel)]="viewProvider.LastName">
+      <input type="text" name="Address" [(ngModel)]="viewProvider.Address">
+      <input type="text" name="City" [(ngModel)]="viewProvider.City">
+    </fieldset>
+    <!--
+    <table class="table table-bordered table-striped table-hover">
+      <tr>
+        <td align="right">&nbsp;FirstName</td>
+        <td><input type="text" name="FirstName" [(ngModel)]="viewProvider.FirstName"></td>
+        <td align="right">&nbsp;LastName</td>
+        <td><input type="text" name="LastName" [(ngModel)]="viewProvider.LastName"></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;Address</td>
+        <td><input type="text" name="Address" [(ngModel)]="viewProvider.Address"></td>
+        <td align="right">&nbsp;City</td>
+        <td><input type="text" name="City" [(ngModel)]="viewProvider.City"></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;ZipCode</td>
+        <td><input type="text" name="ZipCode" [(ngModel)]="viewProvider.ZipCode"></td>
+        <td align="right">&nbsp;Active</td>
+        <td><input type="checkbox" name="Active" [(ngModel)]="viewProvider.Active"></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;Gender</td>
+        <td><input type="text" name="Gender" [(ngModel)]="viewProvider.Gender"></td>
+        <td align="right">&nbsp;HireDate</td>
+        <td><input type="text" name="HireDate" [(ngModel)]="viewProvider.HireDate"></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;EmailAddress</td>
+        <td><input type="text" name="EmailAddr" [(ngModel)]="viewProvider.EmailAddr"></td>
+        <td align="right">&nbsp;Notes</td>
+        <td><input type="text" name="Notes" [(ngModel)]="viewProvider.Notes"></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;CreateDate</td>
+        <td><input type="text" name="CreateDate" [(ngModel)]="viewProvider.CreateDate"></td>
+        <td align="right">&nbsp;CreatedBy</td>
+        <td><input type="text" name="CreatedBy" [(ngModel)]="viewProvider.CreatedBy"></td>
+      </tr>
+      <tr>
+        <td align="right">&nbsp;LastModifiedDate</td>
+        <td><input type="text" name="LastModifiedDate" [(ngModel)]="viewProvider.LastModifiedDate"></td>
+        <td align="right">&nbsp;LastModifiedBy</td>
+        <td><input type="text" name="LastModifiedBy" [(ngModel)]="viewProvider.LastModifiedBy"></td>
+      </tr>
+      <tr>
+        <td colspan=4 style="text-align: center">
+          <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancel</button> &nbsp;&nbsp;
+          <button type="button" class="btn btn-primary" (click)="editProvider(viewProvider)">Edit Provider</button>
+        </td>
+      </tr>
+    </table>
+        -->
+    <!--<div class="form-row">
+    <div class="form-group col-md-6">
+      <app-provider-svc-codes></app-provider-svc-codes>
+    </div>
+    <div class="form-group col-md-6">
+      <app-provider-available-shifts></app-provider-available-shifts>
+    </div>
+  </div>-->
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>
+    Close
+  </button>
+</mat-dialog-actions>

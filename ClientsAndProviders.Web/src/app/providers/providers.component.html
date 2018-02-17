@@ -28,12 +28,8 @@
           <td>{{ provider.city }}</td>
           <td>{{ provider.zipCode }}</td>
           <td>{{ provider.active }}</td>
-          <td>
-            <button class="bn btn-info" placement="top">
-              <!-- just diplay a readonly form of all properties-->
-              <i class="fa fa-eye"></i>
-            </button>
-            <button class="bn btn-info" (click)="showEditProviderForm(provider)">
+          <td>            
+            <button class="bn btn-info" (click)="showViewEditProviderForm(provider)">
               <i class="fa fa-edit"></i>
             </button>
             <button class="bn btn-danger" (click)="removeProvider(provider)">
@@ -52,6 +48,7 @@
 
 
     <!--TODO: put this form in a component line add new provider-->
+    <!--
     <form *ngIf="editProviderForm">
       <h2>Edit ProviderId:({{ editedProvider.providerId }})</h2>
       <table class="table table-bordered table-striped table-hover">
@@ -114,6 +111,7 @@
       </div>
 
     </form>
+    -->
     
   </div>
 </div>

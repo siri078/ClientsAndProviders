@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClientAndProviders.Web.Api.Models;
+using System;
 
 namespace ClientAndProviders.Web.Api.ApiResponse
 {
@@ -20,6 +21,8 @@ namespace ClientAndProviders.Web.Api.ApiResponse
         public string CreatedBy { get; set; }
         public DateTime? LastModifiedDate { get; set; }
         public string LastModifiedBy { get; set; }
+
+		//public ProviderSvcCode[]? ProviderServiceCodes;
 
     }
 }

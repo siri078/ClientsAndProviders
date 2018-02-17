@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http'; import { HttpModule } f
 import { ModalComponent } from '../modal/modal.component';
 import { ModalContent } from '../modal/modalContent';
 import { NewProviderFormComponent } from './new-provider-form/new-provider-form.component';
+import { ViewEditProviderComponent } from './view-edit-provider/view-edit-provider.component';
 
 @Component({
   moduleId: module.id,
@@ -19,10 +20,10 @@ export class ProvidersComponent implements OnInit {
   providerAvailableShifts: IProviderAvailableShifts[];
   providerSvcCodes: IProviderSvcCodes[];
   providerForm: boolean=false;
-  editProviderForm:boolean=false;
+  //editProviderForm:boolean=false;
   isNewForm: boolean;
   newProvider:any = {};
-  editedProvider: any={};
+  viewProvider: any={};
   dialogResult = "";
   @Input() modalOpen: boolean = false;
 
@@ -36,20 +37,24 @@ export class ProvidersComponent implements OnInit {
     this.providersService.getProviderList();
   }
   
-  showEditProviderForm(provider: IProvider){
+  //showEditProviderForm(provider: IProvider){
     
-    if(!provider) {
-      this.providerForm = false;
-      return;
-    }
-    this.editProviderForm = true;
-    this.editedProvider = clone(provider);
+  //  if(!provider) {
+  //    this.providerForm = false;
+  //    return;
+  //  }
+  //  this.editProviderForm = true;
+  //  this.editedProvider = clone(provider);
     
-  }
+  //}
 
   
   showAddProviderForm() {
     this.dialog.openModal(NewProviderFormComponent);
+  }
+
+  showViewEditProviderForm(provider) {    
+    this.dialog.openModal(ViewEditProviderComponent);
   }
 
   saveProvider(provider: IProvider){
@@ -61,17 +66,17 @@ export class ProvidersComponent implements OnInit {
     }
   }
 
-  updateProvider() {
-      //this.providersService.updateProvider(this.editedProvider);
-      this.editProviderForm = false;
-      this.editedProvider = {};
-      this.toastr.success("you have saved a new provider!","Provider")
-  }
+  //updateProvider() {
+  //    //this.providersService.updateProvider(this.editedProvider);
+  //    this.editProviderForm = false;
+  //    this.editedProvider = {};
+  //    this.toastr.success("you have saved a new provider!","Provider")
+  //}
 
-  cancelEdits() {
-      this.editedProvider = {};
-      this.editProviderForm = false;
-  }  
+  //cancelEdits() {
+  //    this.editedProvider = {};
+  //    this.editProviderForm = false;
+  //}  
 
   removeProvider(provider: IProvider) {
     //this.providersService.deleteProvider(provider);

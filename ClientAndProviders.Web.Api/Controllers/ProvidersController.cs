@@ -26,88 +26,100 @@ namespace ClientAndProviders.Web.Api.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, response);
         }
 
-        //// GET: api/Providers/5
-        //[ResponseType(typeof(Provider))]
-        //public IHttpActionResult GetProvider(int id)
-        //{
-        //    Provider provider = db.Providers.Find(id);
-        //    if (provider == null)
-        //    {
-        //        return NotFound();
-        //    }
+		public HttpResponseMessage Get(int id)
+		{
+			ProviderResponse[] response = null;
+			using (var db = new ClientsProvidersDbEntities())
+			{
+				var provider = db.Providers.Find(id);
+				response = Mapper.Map<Provider, ProviderResponse[]>(provider);
 
-        //    return Ok(provider);
-        //}
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, response);
+		}
 
-        //// PUT: api/Providers/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutProvider(int id, Provider provider)
-        //{
-        //    if (id != provider.ProviderId)
-        //    {
-        //        return BadRequest();
-        //    }
+		//// GET: api/Providers/5
+		//[ResponseType(typeof(Provider))]
+		//public IHttpActionResult GetProvider(int id)
+		//{
+		//    Provider provider = db.Providers.Find(id);
+		//    if (provider == null)
+		//    {
+		//        return NotFound();
+		//    }
 
-        //    db.Entry(provider).State = EntityState.Modified;
+		//    return Ok(provider);
+		//}
 
-        //    try
-        //    {
-        //        db.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!ProviderExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+		//// PUT: api/Providers/5
+		//[ResponseType(typeof(void))]
+		//public IHttpActionResult PutProvider(int id, Provider provider)
+		//{
+		//    if (id != provider.ProviderId)
+		//    {
+		//        return BadRequest();
+		//    }
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+		//    db.Entry(provider).State = EntityState.Modified;
 
-        //// POST: api/Providers
-        //[ResponseType(typeof(Provider))]
-        //public IHttpActionResult PostProvider(Provider provider)
-        //{
-            
-        //    db.Providers.Add(provider);
-        //    db.SaveChanges();
+		//    try
+		//    {
+		//        db.SaveChanges();
+		//    }
+		//    catch (DbUpdateConcurrencyException)
+		//    {
+		//        if (!ProviderExists(id))
+		//        {
+		//            return NotFound();
+		//        }
+		//        else
+		//        {
+		//            throw;
+		//        }
+		//    }
 
-        //    return CreatedAtRoute("DefaultApi", new { id = provider.ProviderId }, provider);
-        //}
+		//    return StatusCode(HttpStatusCode.NoContent);
+		//}
 
-        //// DELETE: api/Providers/5
-        //[ResponseType(typeof(Provider))]
-        //public IHttpActionResult DeleteProvider(int id)
-        //{
-        //    Provider provider = db.Providers.Find(id);
-        //    if (provider == null)
-        //    {
-        //        return NotFound();
-        //    }
+		//// POST: api/Providers
+		//[ResponseType(typeof(Provider))]
+		//public IHttpActionResult PostProvider(Provider provider)
+		//{
 
-        //    db.Providers.Remove(provider);
-        //    db.SaveChanges();
+		//    db.Providers.Add(provider);
+		//    db.SaveChanges();
 
-        //    return Ok(provider);
-        //}
+		//    return CreatedAtRoute("DefaultApi", new { id = provider.ProviderId }, provider);
+		//}
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+		//// DELETE: api/Providers/5
+		//[ResponseType(typeof(Provider))]
+		//public IHttpActionResult DeleteProvider(int id)
+		//{
+		//    Provider provider = db.Providers.Find(id);
+		//    if (provider == null)
+		//    {
+		//        return NotFound();
+		//    }
 
-        //private bool ProviderExists(int id)
-        //{
-        //    return db.Providers.Count(e => e.ProviderId == id) > 0;
-        //}
-    }
+		//    db.Providers.Remove(provider);
+		//    db.SaveChanges();
+
+		//    return Ok(provider);
+		//}
+
+		//protected override void Dispose(bool disposing)
+		//{
+		//    if (disposing)
+		//    {
+		//        db.Dispose();
+		//    }
+		//    base.Dispose(disposing);
+		//}
+
+		//private bool ProviderExists(int id)
+		//{
+		//    return db.Providers.Count(e => e.ProviderId == id) > 0;
+		//}
+	}
 }

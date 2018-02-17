@@ -13,6 +13,7 @@ import { HeaderRowPlaceholder } from '@angular/cdk/table';
 export class ProvidersService{
     constructor(private http: Http) { }
     providerList: IProvider[];
+    providerSvcCodes: IProviderSvcCodes[];
 
     postProviders(provider: IProvider){
         var body = JSON.stringify(provider);
@@ -27,6 +28,15 @@ export class ProvidersService{
             return data.json() as IProvider[];
         }).toPromise().then(x => {
             this.providerList = x;
+        })
+    }
+
+    getProviderSvcCodes(providerId) {
+      this.http.get('http://localhost/ClientAndProvidersApi/api/providerSvcCodes/' + providerId)
+        .map((data: Response) => {
+          return data.json() as IProviderSvcCodes[];
+        }).toPromise().then(x => {
+          this.providerSvcCodes = x;
         })
     }
    

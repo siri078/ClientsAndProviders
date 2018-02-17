@@ -14,13 +14,14 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ModalComponent } from './modal/modal.component';
 import { ToastrModule } from 'ngx-toastr';
 
-import { ProviderSvcCodeComponent } from './provider-svc-code/provider-svc-code.component';
-import { ProviderAvailableShiftsComponent } from './provider-available-shifts/provider-available-shifts.component';
 import { MultiSelectComponentComponent } from './multi-select-component/multi-select-component.component';
 import { NewProviderFormComponent } from './providers/new-provider-form/new-provider-form.component';
 
 import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProviderSvcCodesComponent } from './providers/provider-svc-codes/provider-svc-codes.component';
+import { ViewEditProviderComponent } from './providers/view-edit-provider/view-edit-provider.component';
+import { ProviderAvailableShiftsComponent } from './providers/provider-available-shifts/provider-available-shifts.component';
 
 @NgModule({
   imports: [BrowserModule,
@@ -36,11 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     ProvidersComponent,
     NavbarComponent,
-    ModalComponent,
-    ProviderSvcCodeComponent,
-    ProviderAvailableShiftsComponent,
+    ModalComponent,    
     MultiSelectComponentComponent, 
-    NewProviderFormComponent
+    NewProviderFormComponent, ProviderSvcCodesComponent, ViewEditProviderComponent, ProviderAvailableShiftsComponent
   ],
   entryComponents: [ModalComponent, NewProviderFormComponent],
   providers: [ProvidersService, HttpClientModule],
