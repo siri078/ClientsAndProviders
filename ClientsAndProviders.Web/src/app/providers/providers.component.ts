@@ -4,20 +4,19 @@ import { ProvidersService } from './provider.service';
 import { clone } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-
+import { HttpClientModule } from '@angular/common/http'; import { HttpModule } from '@angular/http';
 import { ModalComponent } from '../modal/modal.component';
 import { ModalContent } from '../modal/modalContent';
-import * as $ from 'jquery';
-
+import { NewProviderFormComponent } from './new-provider-form/new-provider-form.component';
 
 @Component({
   moduleId: module.id,
   templateUrl: './providers.component.html',
-  styleUrls: ['./providers.component.css']
+  styleUrls: ['./providers.component.css'],
+  providers: [ModalComponent]
 })
 export class ProvidersComponent implements OnInit {
   providerAvailableShifts: IProviderAvailableShifts[];
-  @Input() modalContent: ModalContent;
   providerSvcCodes: IProviderSvcCodes[];
   providerForm: boolean=false;
   editProviderForm:boolean=false;
@@ -27,7 +26,7 @@ export class ProvidersComponent implements OnInit {
   dialogResult = "";
   @Input() modalOpen: boolean = false;
 
-  constructor(public providersService: ProvidersService, private toastr: ToastrService) { }
+  constructor(public dialog1: MatDialog, private dialog: ModalComponent, public providersService: ProvidersService, private toastr: ToastrService) { }
   ngOnInit() {
     this.getProviders();
   }
@@ -48,23 +47,9 @@ export class ProvidersComponent implements OnInit {
     
   }
 
-  public openModal() {
-    this.modalContent = ModalContent.newProviderForm;
-    this.modalOpen = true;
-    //$('#myModal').on('shown.bs.modal', function () {
-    //  $('#myInput').focus()
-    //})
-    //$('#myModal').modal('show');//.on('shown.bs.modal', function () {
-     /// $('#myInput').focus()
-    //})
-  }
-  showAddProviderForm(){
-    //resets form if its an edited provider
-    //if (this.providers.length){
-    //  this.newProvider = {};
-    //}
-    this.providerForm = true;
-    this.isNewForm = true;    
+  
+  showAddProviderForm() {
+    this.dialog.openModal(NewProviderFormComponent);
   }
 
   saveProvider(provider: IProvider){

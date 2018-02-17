@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+.mat-dialog-container {
+  //position: fixed !important;
+  top: 100px;
+  left: 20%;
+}
+

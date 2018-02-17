@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewType } from './types/ViewType';
-
+import { HttpClientModule } from '@angular/common/http'; import { HttpModule } from '@angular/http';
 @Component({
   moduleId: module.id,
   selector: 'ng-app',

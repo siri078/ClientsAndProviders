@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { HttpModule } from '@angular/http';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ProvidersComponent } from './providers/providers.component';
 import { NavbarComponent } from './nav/nav.component';
 
-import { ProvidersService} from './providers/provider.service'
+import { ProvidersService } from './providers/provider.service'
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ModalComponent } from './modal/modal.component';
 import { ToastrModule } from 'ngx-toastr';
@@ -19,32 +19,32 @@ import { ProviderAvailableShiftsComponent } from './provider-available-shifts/pr
 import { MultiSelectComponentComponent } from './multi-select-component/multi-select-component.component';
 import { NewProviderFormComponent } from './providers/new-provider-form/new-provider-form.component';
 
-/*
-import { MatCardModule } from '@angular/material';
-import { MatButtonModule } from '@angular/material';
-import { MatDialogModule } from '@angular/material/dialog';
-*/
-
+import { MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  imports: [ BrowserModule,
-                   FormsModule,
-                   AppRoutingModule,
-                   AngularFontAwesomeModule,
-                   HttpModule,                 
-                   ToastrModule.forRoot()                   
-                   ],
-  declarations: [ AppComponent,
-                          ProvidersComponent,
-                          NavbarComponent,
-                          ModalComponent,
-                          ProviderSvcCodeComponent,
-                          ProviderAvailableShiftsComponent,
-                          MultiSelectComponentComponent,
-                          NewProviderFormComponent
-                          ],
-  providers: [ ProvidersService ],
-  bootstrap:    [ AppComponent ]
+  imports: [BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    AngularFontAwesomeModule,
+    HttpModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
+  ],
+  declarations: [
+    AppComponent,
+    ProvidersComponent,
+    NavbarComponent,
+    ModalComponent,
+    ProviderSvcCodeComponent,
+    ProviderAvailableShiftsComponent,
+    MultiSelectComponentComponent, 
+    NewProviderFormComponent
+  ],
+  entryComponents: [ModalComponent, NewProviderFormComponent],
+  providers: [ProvidersService, HttpClientModule],
+  bootstrap: [AppComponent]
 })
 
 export class AppModule { }

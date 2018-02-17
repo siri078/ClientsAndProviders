@@ -1,12 +1,7 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { ModalContent } from '../modal/modalContent';
-import * as $ from 'jquery';
-
-
-/*
-import { MatDialogRef } from '@angular/material/dialog'
-import { MAT_DIALOG_DATA } from  '@angular/material/dialog';
-*/
+import { MatDialog } from '@angular/material/dialog';
+import { ComponentType } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-modal',
@@ -14,35 +9,28 @@ import { MAT_DIALOG_DATA } from  '@angular/material/dialog';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
-  private _open: boolean;
-  private _content: ModalContent;
-  @Input() set open(value: boolean) {
-    this._open = value;
-    if (this.open) {
-      $('#myModal').modal('show');
-    }
-    else {
-      $('#myModal').modal('hide');
-    }
-  }
-  @Input() set Content(value: ModalContent) {
-    this._content = value;
+  private modalConfig: any = {
+    position: {
+      //left: '20%',
+      //top: '100px'
+    },
+    disableClose:false
+  };
+
+  constructor(public dialog: MatDialog) {
+
   }
 
-  constructor() {
+  public openModal(component: any, config: any = this.modalConfig) {
+    this.dialog.open(component, config);
 
-  }  
+    
+  }
 
-
+  public close() { this.dialog.closeAll(); }
   ngOnChanges() {
-    if (this.open) {
-      $('#myModal').on('shown.bs.modal', function () {
-        $('#myInput').focus()
-      })
-    }
   }
   ngOnInit() {
-  this.open
   }
   /*
   onCloseConfirm(){
