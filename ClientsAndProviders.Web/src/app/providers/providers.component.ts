@@ -27,7 +27,7 @@ export class ProvidersComponent implements OnInit {
   viewProvider: any = {};
   viewEditProvider: any = {};
   dialogResult = "";
-  isDisabled: true;  
+  isDisabled: boolean=true;  
   @Input() modalOpen: boolean = false;
 
   constructor(public dialog1: MatDialog, private dialog: ModalComponent, public providersService: ProvidersService, private toastr: ToastrService) { }
@@ -59,6 +59,10 @@ export class ProvidersComponent implements OnInit {
     this.dialog.openModal(ViewEditProviderComponent);
   }
 
+  changeToEditable() {   
+    this.isDisabled = false;
+  }
+
   //editProviderForm(provider) {
   //  this.dialog.openModal(EditProviderFormComponent);
   //}
@@ -79,10 +83,10 @@ export class ProvidersComponent implements OnInit {
   //    this.toastr.success("you have saved a new provider!","Provider")
   //}
 
-  //cancelEdits() {
-  //    this.editedProvider = {};
-  //    this.editProviderForm = false;
-  //}  
+  cancelViewEditForm() {
+      this.viewEditProvider = {};
+      this.editProviderForm = false;
+  }  
 
   removeProvider(provider: IProvider) {
     //this.providersService.deleteProvider(provider);
