@@ -1,3 +1,4 @@
 export enum ModalContent {
-newProviderForm
+  newProviderForm,
+  editProviderForm
 }

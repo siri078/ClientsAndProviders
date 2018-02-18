@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { HttpModule } from '@angular/http';
@@ -15,31 +15,38 @@ import { ModalComponent } from './modal/modal.component';
 import { ToastrModule } from 'ngx-toastr';
 
 import { MultiSelectComponentComponent } from './multi-select-component/multi-select-component.component';
-import { NewProviderFormComponent } from './providers/new-provider-form/new-provider-form.component';
+
 
 import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProviderSvcCodesComponent } from './providers/provider-svc-codes/provider-svc-codes.component';
+import { NewProviderFormComponent } from './providers/new-provider-form/new-provider-form.component';
 import { ViewEditProviderComponent } from './providers/view-edit-provider/view-edit-provider.component';
 import { ProviderAvailableShiftsComponent } from './providers/provider-available-shifts/provider-available-shifts.component';
+import { EditProviderFormComponent } from './providers/edit-provider-form/edit-provider-form.component';
 
 @NgModule({
   imports: [BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
     HttpModule,
     MatDialogModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
-  ],
+  ],  
   declarations: [
     AppComponent,
     ProvidersComponent,
     NavbarComponent,
     ModalComponent,    
     MultiSelectComponentComponent, 
-    NewProviderFormComponent, ProviderSvcCodesComponent, ViewEditProviderComponent, ProviderAvailableShiftsComponent
+    NewProviderFormComponent,
+    ProviderSvcCodesComponent,
+    ViewEditProviderComponent,
+    ProviderAvailableShiftsComponent,
+    EditProviderFormComponent
   ],
   entryComponents: [ModalComponent, NewProviderFormComponent],
   providers: [ProvidersService, HttpClientModule],

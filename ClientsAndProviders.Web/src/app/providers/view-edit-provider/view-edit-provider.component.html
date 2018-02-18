@@ -2,7 +2,12 @@
   <form>
     <h2>ProviderId:({{ viewProvider.providerId }})</h2>
     <fieldset ng-disabled="isEditable">
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" name="firstName" [(ngModel)]="provider.firstName" />        
+      </div>
       <input type="text" name="FirstName" [(ngModel)]="viewProvider.FirstName">
+
       <input type="text" name="LastName" [(ngModel)]="viewProvider.LastName">
       <input type="text" name="Address" [(ngModel)]="viewProvider.Address">
       <input type="text" name="City" [(ngModel)]="viewProvider.City">

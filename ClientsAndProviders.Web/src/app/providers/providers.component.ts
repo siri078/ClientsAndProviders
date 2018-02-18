@@ -9,6 +9,7 @@ import { ModalComponent } from '../modal/modal.component';
 import { ModalContent } from '../modal/modalContent';
 import { NewProviderFormComponent } from './new-provider-form/new-provider-form.component';
 import { ViewEditProviderComponent } from './view-edit-provider/view-edit-provider.component';
+import { EditProviderFormComponent } from './edit-provider-form/edit-provider-form.component';
 
 @Component({
   moduleId: module.id,
@@ -20,11 +21,13 @@ export class ProvidersComponent implements OnInit {
   providerAvailableShifts: IProviderAvailableShifts[];
   providerSvcCodes: IProviderSvcCodes[];
   providerForm: boolean=false;
-  //editProviderForm:boolean=false;
+  editProviderForm:boolean=false;
   isNewForm: boolean;
   newProvider:any = {};
-  viewProvider: any={};
+  viewProvider: any = {};
+  viewEditProvider: any = {};
   dialogResult = "";
+  isDisabled: true;  
   @Input() modalOpen: boolean = false;
 
   constructor(public dialog1: MatDialog, private dialog: ModalComponent, public providersService: ProvidersService, private toastr: ToastrService) { }
@@ -37,16 +40,15 @@ export class ProvidersComponent implements OnInit {
     this.providersService.getProviderList();
   }
   
-  //showEditProviderForm(provider: IProvider){
+  showEditProviderForm(provider: IProvider){
     
-  //  if(!provider) {
-  //    this.providerForm = false;
-  //    return;
-  //  }
-  //  this.editProviderForm = true;
-  //  this.editedProvider = clone(provider);
-    
-  //}
+    if(!provider) {
+      this.providerForm = false;
+      return;
+    }
+    this.editProviderForm = true;
+    this.viewEditProvider = clone(provider);    
+  }
 
   
   showAddProviderForm() {
@@ -56,6 +58,10 @@ export class ProvidersComponent implements OnInit {
   showViewEditProviderForm(provider) {    
     this.dialog.openModal(ViewEditProviderComponent);
   }
+
+  //editProviderForm(provider) {
+  //  this.dialog.openModal(EditProviderFormComponent);
+  //}
 
   saveProvider(provider: IProvider){
     if(this.isNewForm) {

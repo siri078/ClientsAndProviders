@@ -22,7 +22,8 @@ namespace ClientAndProviders.Web.Api.ApiResponse
         public DateTime? LastModifiedDate { get; set; }
         public string LastModifiedBy { get; set; }
 
-		//public ProviderSvcCode[]? ProviderServiceCodes;
+		public ProviderAvailableShift[] ProviderAvailableShifts { get; set; }		
+		public ProviderSvcCode[] ProviderSvcCodes { get; set; }
 
-    }
+	}
 }

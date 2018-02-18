@@ -1,6 +1,10 @@
 export enum ViewType {
-  provider,
-  client,
+  providerList,
+  providerScheduledShifts,
+  providerUnscheduledShifts,
+  clientList,
+  clientsNeedingAssignment,
+  clientsScheduledAssignment,
   tableMaintSvcCodes,
   tableMaintShifts
 }

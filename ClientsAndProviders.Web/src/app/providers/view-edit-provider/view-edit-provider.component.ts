@@ -15,6 +15,8 @@ export class ViewEditProviderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    //console.log(this.viewProvider.firstName);   // arghhhhhh...  why isn't viewProvider being passed in???
+    
   }
 
 }

@@ -28,7 +28,10 @@
           <td>{{ provider.city }}</td>
           <td>{{ provider.zipCode }}</td>
           <td>{{ provider.active }}</td>
-          <td>            
+          <td>
+            <button class="bn btn-primary" (click)="showEditProviderForm(provider)">
+              <i class="fa fa-eye"></i>
+            </button>
             <button class="bn btn-info" (click)="showViewEditProviderForm(provider)">
               <i class="fa fa-edit"></i>
             </button>
@@ -47,73 +50,156 @@
     <br>
 
 
-    <!--TODO: put this form in a component line add new provider-->
-    <!--
+    <!--TODO: put this form in a component line add new provider-->    
     <form *ngIf="editProviderForm">
-      <h2>Edit ProviderId:({{ editedProvider.providerId }})</h2>
-      <table class="table table-bordered table-striped table-hover">
+      <h2>ProviderId:( {{ viewEditProvider.providerId }} )</h2>
+      <fieldset [disabled]='true'>
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" class="form-control" name="firstName" [(ngModel)]="viewEditProvider.firstName" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" class="form-control" name="lastName" [(ngModel)]="viewEditProvider.lastName" />
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <input type="text" class="form-control" name="address" [(ngModel)]="viewEditProvider.address" />
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" class="form-control" name="city" [(ngModel)]="viewEditProvider.city" />
+        </div>
+        <div class="form-group">
+          <label>ZipCode</label>
+          <input type="text" class="form-control" name="zipCode" [(ngModel)]="viewEditProvider.zipCode" />
+        </div>
+        <div class="form-group">
+          <label>Active</label>
+          <input type="checkbox" class="form-control" name="active" [(ngModel)]="viewEditProvider.active" />
+        </div>
+        <div class="form-group">
+          <label>Gender</label>
+          <input type="text" class="form-control" name="gender" [(ngModel)]="viewEditProvider.gender" />
+        </div>
+        <div class="form-group">
+          <label>HireDate</label>
+          <input type="text" class="form-control" name="hireDate" [(ngModel)]="viewEditProvider.hireDate" />
+        </div>
+        <div class="form-group">
+          <label>Notes</label>
+          <input type="text" class="form-control" name="notes" [(ngModel)]="viewEditProvider.notes" />
+        </div>
+        <div class="form-group">
+          <label>CreateDate</label>
+          <input type="text" class="form-control" name="createDate" [(ngModel)]="viewEditProvider.createDate" />
+        </div>
+        <div class="form-group">
+          <label>LastModifiedDate</label>
+          <input type="text" class="form-control" name="lastModifiedDate" [(ngModel)]="viewEditProvider.lastModifiedDate" />
+        </div>
+        <div class="form-group">
+          <label><b>SvcCodes</b></label>
+          <div *ngFor="let svcCd of viewEditProvider.providerSvcCodes">
+            <input type="text" class="form-control" name="{{ svcCd.svcCode }}" [(ngModel)]="svcCd.svcCode" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label><b>Available Shifts</b></label><br />
+          <label class="col-3">Weekday</label><label class="col-3">Shift</label><label class="col-3">HasBeenScheduled?</label>
+          <div *ngFor="let availShift of viewEditProvider.providerAvailableShifts">
+            <input type="text" class="form-control-sm" name="{{ availShift.dayOfWeek }}" [(ngModel)]="availShift.dayOfWeek" />
+            <input type="text" class="form-control-sm" name="{{ availShift.shift }}" [(ngModel)]="availShift.shift" />
+            <input type="checkbox" class="form-control-sm" name="{{ availShift.hasBeenScheduled }}" [(ngModel)]="availShift.hasBeenScheduled" />
+          </div>
+        </div>
+      </fieldset>
+      <div style="text-align:center">
+        <button type="button" class="btn btn-warning">Cancel</button> &nbsp;&nbsp;
+        <button type="button" class="btn btn-primary">Edit Provider</button>
+      </div>
+
+
+      <!--<table class="table table-bordered table-striped table-hover">
+    <tr>
+      <td align="right">&nbsp;FirstName</td>
+      <td>{{ editedProvider.firstName }}</td>
+      <td align="right">&nbsp;LastName</td>
+      <td>{{ editedProvider.lastName }}</td>
+    </tr>
+    <tr>
+      <td align="right">&nbsp;Address</td>
+      <td>{{ editedProvider.address }}</td>
+      <td align="right">&nbsp;City</td>
+      <td>{{ editedProvider.city }}</td>
+    </tr>
+    <tr>
+      <td align="right">&nbsp;ZipCode</td>
+      <td>{{ editedProvider.zipCode }}</td>
+      <td align="right">&nbsp;Active</td>
+      <td>{{ editedProvider.active }}</td>
+    </tr>
+    <tr>
+      <td align="right">&nbsp;Gender</td>
+      <td>{{ editedProvider.gender }}</td>
+      <td align="right">&nbsp;HireDate</td>
+      <td>{{ editedProvider.hireDate }}></td>
+    </tr>
+    <tr>
+      <td align="right">&nbsp;EmailAddress</td>
+      <td>{{ editedProvider.emailAddr }}</td>
+      <td align="right">&nbsp;Notes</td>
+      <td>{{ editedProvider.notes }}</td>
+    </tr>
+    <tr>
+      <td align="right">&nbsp;CreateDate</td>
+      <td>{{ editedProvider.createDate }}</td>
+      <td align="right">&nbsp;CreatedBy</td>
+      <td>{{ editedProvider.createdBy }}</td>
+    </tr>
+    <tr>
+      <td align="right">&nbsp;LastModifiedDate</td>
+      <td>{{ editedProvider.lastModifiedDate }}</td>
+      <td align="right">&nbsp;LastModifiedBy</td>
+      <td>{{ editedProvider.lastModifiedBy }}</td>
+    </tr>
+    <tr>
+      <td colspan=4 style="text-align: center">
+        <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancel</button> &nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" (click)="updateProvider(editedProvider)">Update Provider</button>
+      </td>
+    </tr>
+  </table>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <table align="center">
         <tr>
-          <td align="right">&nbsp;FirstName</td>
-          <td><input type="text" name="FirstName" [(ngModel)]="editedProvider.FirstName"></td>
-          <td align="right">&nbsp;LastName</td>
-          <td><input type="text" name="LastName" [(ngModel)]="editedProvider.LastName"></td>
+          <th>Svc Codes</th>
         </tr>
-        <tr>
-          <td align="right">&nbsp;Address</td>
-          <td><input type="text" name="Address" [(ngModel)]="editedProvider.Address"></td>
-          <td align="right">&nbsp;City</td>
-          <td><input type="text" name="City" [(ngModel)]="editedProvider.City"></td>
-        </tr>
-        <tr>
-          <td align="right">&nbsp;ZipCode</td>
-          <td><input type="text" name="ZipCode" [(ngModel)]="editedProvider.ZipCode"></td>
-          <td align="right">&nbsp;Active</td>
-          <td><input type="checkbox" name="Active" [(ngModel)]="editedProvider.Active"></td>
-        </tr>
-        <tr>
-          <td align="right">&nbsp;Gender</td>
-          <td><input type="text" name="Gender" [(ngModel)]="editedProvider.Gender"></td>
-          <td align="right">&nbsp;HireDate</td>
-          <td><input type="text" name="HireDate" [(ngModel)]="editedProvider.HireDate"></td>
-        </tr>
-        <tr>
-          <td align="right">&nbsp;EmailAddress</td>
-          <td><input type="text" name="EmailAddr" [(ngModel)]="editedProvider.EmailAddr"></td>
-          <td align="right">&nbsp;Notes</td>
-          <td><input type="text" name="Notes" [(ngModel)]="editedProvider.Notes"></td>
-        </tr>
-        <tr>
-          <td align="right">&nbsp;CreateDate</td>
-          <td><input type="text" name="CreateDate" [(ngModel)]="editedProvider.CreateDate"></td>
-          <td align="right">&nbsp;CreatedBy</td>
-          <td><input type="text" name="CreatedBy" [(ngModel)]="editedProvider.CreatedBy"></td>
-        </tr>
-        <tr>
-          <td align="right">&nbsp;LastModifiedDate</td>
-          <td><input type="text" name="LastModifiedDate" [(ngModel)]="editedProvider.LastModifiedDate"></td>
-          <td align="right">&nbsp;LastModifiedBy</td>
-          <td><input type="text" name="LastModifiedBy" [(ngModel)]="editedProvider.LastModifiedBy"></td>
-        </tr>
-        <tr>
-          <td colspan=4 style="text-align: center">
-            <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancel</button> &nbsp;&nbsp;
-            <button type="button" class="btn btn-primary" (click)="updateProvider(editedProvider)">Update Provider</button>
+        <tr *ngFor="let svcCd of editedProvider.providerSvcCodes">
+          <td align="center">
+            {{ svcCd.svcCode }}
           </td>
         </tr>
       </table>
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <app-provider-svc-code></app-provider-svc-code>
-        </div>
-        <div class="form-group col-md-6">
-          <app-provider-available-shifts></app-provider-available-shifts>
-        </div>
-      </div>
-
-    </form>
-    -->
+    </div>
+    <div class="form-group col-md-6">
+      <table>
+        <tr>
+          <th>Weekday</th>
+          <th>Shift</th>
+          <th>Scheduled?</th>
+        </tr>
+        <tr *ngFor="let availShift of editedProvider.providerAvailableShifts">
+          <td>{{ availShift.dayOfWeek }}</td>
+          <td>{{ availShift.shift }}</td>
+          <td>{{ availShift.hasBeenScheduled }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>-->
+    </form>    
     
   </div>
 </div>
-<app-modal >
-</app-modal>
+<app-modal></app-modal>
