@@ -27,7 +27,8 @@ export class ProvidersComponent implements OnInit {
   viewProvider: any = {};
   viewEditProvider: any = {};
   dialogResult = "";
-  isDisabled: boolean=true;  
+  isDisabled: boolean = true;
+  newShift: any = {};
   @Input() modalOpen: boolean = false;
 
   constructor(public dialog1: MatDialog, private dialog: ModalComponent, public providersService: ProvidersService, private toastr: ToastrService) { }
@@ -61,6 +62,11 @@ export class ProvidersComponent implements OnInit {
 
   changeToEditable() {   
     this.isDisabled = false;
+  }
+
+  addShift() {
+    this.providerAvailableShifts.push(this.newShift);
+    this.newShift = {};
   }
 
   //editProviderForm(provider) {
