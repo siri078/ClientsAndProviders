@@ -56,7 +56,8 @@ export class ProvidersComponent implements OnInit {
     this.dialog.openModal(NewProviderFormComponent);
   }
 
-  showViewEditProviderForm(provider) {    
+  showViewEditProviderForm(provider) {
+    //TODO: To keep consistency and descriptive, rename ViewEditProviderComponent to EditProviderFormComponent
     this.dialog.openModal(ViewEditProviderComponent);
   }
 
