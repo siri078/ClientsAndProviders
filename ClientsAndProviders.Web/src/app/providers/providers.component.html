@@ -102,20 +102,41 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label><strong>SvcCodes</strong></label>
-            <div *ngFor="let svcCd of viewEditProvider.providerSvcCodes">
-              <input type="text" class="form-control-sm" name="{{ svcCd.svcCode }}" [(ngModel)]="svcCd.svcCode" />
-            </div>
-          </div>
+            <table>
+              <tr *ngFor="let svcCd of viewEditProvider.providerSvcCodes">
+                <td><input type="text" class="form-control-sm" name="{{ svcCd.svcCode }}" [(ngModel)]="svcCd.svcCode" /></td>
+                <td>                  
+                  <button class="btn btn-danger" (click)="removeSvcCode(svcCd.svcCode)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="!isDisabled">
+                <td>                  
+                  <input type="text" class="form-control-sm" name="newSvcCodeValue" [(ngModel)]="newSvcCode.svcCode" />                  
+                </td>
+                <td>
+                  <button class="btn-success" (click)="addSvcCode(newSvcCode)">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </td>
+              </tr>
+            </table>            
+          </div>                
           <div class="form-group col-md-9">
             <label><strong>Available Shifts</strong></label>
             <table class="table table-striped table-bordered">
               <tr>
+                <th>ProviderId</th>
                 <th>DayOfWeek</th>
                 <th>Shift</th>
                 <th>Scheduled?</th>
                 <th>Actions</th>
               </tr>
               <tr *ngFor="let availShift of viewEditProvider.providerAvailableShifts">
+                <td>
+                  <input type="text" name="{{ availShift.providerId }}" [(ngModel)]="availShift.providerId" />
+                </td>
                 <td>
                   <input type="text" class="form-control-sm" name="{{ availShift.dayOfWeek }}" [(ngModel)]="availShift.dayOfWeek" />
                 </td>
@@ -125,16 +146,16 @@
                 <td align="center">
                   <input type="checkbox" class="form-control-sm" name="{{ availShift.hasBeenScheduled }}" [(ngModel)]="availShift.hasBeenScheduled" />
                 </td>
-                <td>
-                  <button class="btn btn-info">
-                    <i class="fa fa-save"></i>
-                  </button>
-                  <button class="btn btn-danger">
+                <td>                  
+                  <button class="btn btn-danger" (click)="removeShift(availShift.providerId)">
                     <i class="fa fa-trash"></i>
                   </button>
                 </td>
               </tr>
               <tr *ngIf="!isDisabled">
+                <td>
+                  <input type="text" class="form-control-sm" name="newShiftProviderId" [(ngModel)]="newShift.providerId" />
+                </td>
                 <td>
                   <input type="text" class="form-control-sm" name="newShiftDayOfWeek" [(ngModel)]="newShift.dayOfWeek" />
                 </td>

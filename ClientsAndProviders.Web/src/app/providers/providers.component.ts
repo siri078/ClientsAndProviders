@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IProvider, IProviderAvailableShifts, IProviderSvcCodes } from '../shared/interfaces';
 import { ProvidersService } from './provider.service';
-import { clone } from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http'; import { HttpModule } from '@angular/http';
@@ -9,7 +8,6 @@ import { ModalComponent } from '../modal/modal.component';
 import { ModalContent } from '../modal/modalContent';
 import { NewProviderFormComponent } from './new-provider-form/new-provider-form.component';
 import { ViewEditProviderComponent } from './view-edit-provider/view-edit-provider.component';
-import { EditProviderFormComponent } from './edit-provider-form/edit-provider-form.component';
 
 @Component({
   moduleId: module.id,
@@ -18,24 +16,25 @@ import { EditProviderFormComponent } from './edit-provider-form/edit-provider-fo
   providers: [ModalComponent]
 })
 export class ProvidersComponent implements OnInit {
-  providerAvailableShifts: IProviderAvailableShifts[];
-  providerSvcCodes: IProviderSvcCodes[];
+  providers: IProvider[];
+  //providerAvailableShifts: IProviderAvailableShifts[];
+  //providerSvcCodes: IProviderSvcCodes[];
   providerForm: boolean=false;
   editProviderForm:boolean=false;
   isNewForm: boolean;
   newProvider:any = {};
-  viewProvider: any = {};
+  //viewProvider: any = {};
   viewEditProvider: any = {};
   dialogResult = "";
   isDisabled: boolean = true;
+  newSvcCode: any = {};
   newShift: any = {};
   @Input() modalOpen: boolean = false;
 
   constructor(public dialog1: MatDialog, private dialog: ModalComponent, public providersService: ProvidersService, private toastr: ToastrService) { }
   ngOnInit() {
-    this.getProviders();
-  }
-  
+    this.getProviders();    
+  }  
   
   getProviders() {
     this.providersService.getProviderList();
@@ -47,8 +46,8 @@ export class ProvidersComponent implements OnInit {
       this.providerForm = false;
       return;
     }
-    this.editProviderForm = true;
-    this.viewEditProvider = clone(provider);    
+    this.editProviderForm = true;   
+    this.viewEditProvider = provider;    
   }
 
   
@@ -66,8 +65,23 @@ export class ProvidersComponent implements OnInit {
   }
 
   addShift() {
-    this.providerAvailableShifts.push(this.newShift);
+    this.viewEditProvider.providerAvailableShifts.push(this.newShift);
     this.newShift = {};
+  }
+
+  addSvcCode() {
+    console.log(this.newSvcCode);    
+    this.viewEditProvider.providerSvcCodes.push(this.newSvcCode);
+    this.newSvcCode = {};
+  }
+
+  removeSvcCode(svCode) {
+    alert(svCode);
+    this.viewEditProvider.providerSvcCodes.splice(svCode);
+  }
+
+  removeShift(providerId) {
+    this.viewEditProvider.providerAvailableShifts.splice(providerId);
   }
 
   //editProviderForm(provider) {

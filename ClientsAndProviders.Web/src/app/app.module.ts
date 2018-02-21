@@ -23,7 +23,6 @@ import { ProviderSvcCodesComponent } from './providers/provider-svc-codes/provid
 import { NewProviderFormComponent } from './providers/new-provider-form/new-provider-form.component';
 import { ViewEditProviderComponent } from './providers/view-edit-provider/view-edit-provider.component';
 import { ProviderAvailableShiftsComponent } from './providers/provider-available-shifts/provider-available-shifts.component';
-import { EditProviderFormComponent } from './providers/edit-provider-form/edit-provider-form.component';
 
 @NgModule({
   imports: [BrowserModule,
@@ -45,10 +44,9 @@ import { EditProviderFormComponent } from './providers/edit-provider-form/edit-p
     NewProviderFormComponent,
     ProviderSvcCodesComponent,
     ViewEditProviderComponent,
-    ProviderAvailableShiftsComponent,
-    EditProviderFormComponent
+    ProviderAvailableShiftsComponent
   ],
-  entryComponents: [ModalComponent, NewProviderFormComponent],
+  entryComponents: [ModalComponent, NewProviderFormComponent, ViewEditProviderComponent],
   providers: [ProvidersService, HttpClientModule],
   bootstrap: [AppComponent]
 })
