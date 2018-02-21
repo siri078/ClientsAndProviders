@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using ClientAndProviders.Web.Api.ApiResponse;
 using ClientAndProviders.Web.Api.Models;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -36,6 +39,29 @@ namespace ClientAndProviders.Web.Api.Controllers
 
 			}
 			return Request.CreateResponse(HttpStatusCode.OK, response);
+		}
+		
+		/// <summary>
+		/// PUT: sends and update to the provider object
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="provider"></param>
+		/// <returns></returns>
+		[HttpPut]
+		public HttpResponseMessage Put(int id, Provider provider)
+		{
+			//quick check to determine if the provider is a valid provider?
+			if (id != provider.ProviderId)
+			{
+				throw new HttpResponseException(HttpStatusCode.NotFound);
+			}
+
+			ProviderResponse[] response = null;
+			using (var db = new ClientsProvidersDbEntities())
+			{				
+				response = Mapper.Map<Provider, ProviderResponse[]>(provider);				
+				return Request.CreateResponse(HttpStatusCode.OK, response);			
+			}			
 		}
 
 		//// GET: api/Providers/5

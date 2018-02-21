@@ -22,6 +22,13 @@ export class ProvidersService{
         return this.http.post('http://localhost/ClientAndProvidersApi/api/providers', body, requestOptions).map(x => x.json());
     }
 
+    putProvider(provider: IProvider) {
+      var body = JSON.stringify(provider);
+      var headerOptions = new Headers({ 'Content-Type': 'application/json' });
+      var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });
+      return this.http.put('http://localhost/ClientAndProvidersApi/api/providers', body, requestOptions).map(x => x.json());
+    }
+
     getProviderList() {
         this.http.get('http://localhost/ClientAndProvidersApi/api/providers')
         .map((data : Response) => {

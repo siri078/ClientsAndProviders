@@ -9,14 +9,40 @@ import { ProvidersService } from '../provider.service';
   styleUrls: ['./view-edit-provider.component.css']
 })
 export class ViewEditProviderComponent implements OnInit {
-  viewProvider: IProvider;
-  isEditable: true;
+  viewEditProvider: any = {};
+  dialogResult = "";
+  isDisabled: boolean = true;
+  newSvcCode: any = {};
+  newShift: any = {};
 
   constructor() { }
 
-  ngOnInit() {
-    //console.log(this.viewProvider.firstName);   // arghhhhhh...  why isn't viewProvider being passed in???
+  ngOnInit() {    
     
+  }
+
+  changeToEditable() {
+    this.isDisabled = false;
+  }
+
+  addShift() {
+    this.viewEditProvider.providerAvailableShifts.push(this.newShift);
+    this.newShift = {};
+  }
+
+  addSvcCode() {
+    console.log(this.newSvcCode);
+    this.viewEditProvider.providerSvcCodes.push(this.newSvcCode);
+    this.newSvcCode = {};
+  }
+
+  removeSvcCode(svCode) {
+    alert(svCode);
+    this.viewEditProvider.providerSvcCodes.splice(svCode);
+  }
+
+  removeShift(shift) {
+    this.viewEditProvider.providerAvailableShifts.splice(shift);
   }
 
 }

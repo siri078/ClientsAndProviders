@@ -17,13 +17,10 @@ import { ViewEditProviderComponent } from './view-edit-provider/view-edit-provid
 })
 export class ProvidersComponent implements OnInit {
   providers: IProvider[];
-  //providerAvailableShifts: IProviderAvailableShifts[];
-  //providerSvcCodes: IProviderSvcCodes[];
   providerForm: boolean=false;
   editProviderForm:boolean=false;
   isNewForm: boolean;
   newProvider:any = {};
-  //viewProvider: any = {};
   viewEditProvider: any = {};
   dialogResult = "";
   isDisabled: boolean = true;
@@ -57,7 +54,15 @@ export class ProvidersComponent implements OnInit {
 
   showViewEditProviderForm(provider) {
     //TODO: To keep consistency and descriptive, rename ViewEditProviderComponent to EditProviderFormComponent
-    this.dialog.openModal(ViewEditProviderComponent);
+    console.log(provider.providerId + ', ' + provider.firstName);
+    this.viewEditProvider = provider;
+    console.log(this.viewEditProvider.providerId + ', ' + this.viewEditProvider.firstName);
+    
+    let dialogRef = this.dialog.openModal(ViewEditProviderComponent, {
+      width: '1000px',
+      height: '800px',
+      data: { comp: this.viewEditProvider }
+    });  
   }
 
   changeToEditable() {   
@@ -80,20 +85,19 @@ export class ProvidersComponent implements OnInit {
     this.viewEditProvider.providerSvcCodes.splice(svCode);
   }
 
-  removeShift(providerId) {
-    this.viewEditProvider.providerAvailableShifts.splice(providerId);
+  removeShift(shift) {
+    this.viewEditProvider.providerAvailableShifts.splice(shift);
   }
-
-  //editProviderForm(provider) {
-  //  this.dialog.openModal(EditProviderFormComponent);
-  //}
-
+  
   saveProvider(provider: IProvider){
-    if(this.isNewForm) {
-      //add new product
+    if (this.isNewForm) {
       //this._providersService.postProviders(provider);
       //this.providersService.addProvider(provider);
-      this.toastr.success("Success, you have saved a new provider to the Database!","Provider")
+      this.toastr.success("Success, you have saved a new provider to the Database!", "Provider")
+    }
+    else {
+      //this is one we have edited
+      this.providersService.putProvider(provider);
     }
   }
 

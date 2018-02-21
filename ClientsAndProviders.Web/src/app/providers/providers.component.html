@@ -126,17 +126,13 @@
           <div class="form-group col-md-9">
             <label><strong>Available Shifts</strong></label>
             <table class="table table-striped table-bordered">
-              <tr>
-                <th>ProviderId</th>
+              <tr>                
                 <th>DayOfWeek</th>
                 <th>Shift</th>
                 <th>Scheduled?</th>
                 <th>Actions</th>
               </tr>
-              <tr *ngFor="let availShift of viewEditProvider.providerAvailableShifts">
-                <td>
-                  <input type="text" name="{{ availShift.providerId }}" [(ngModel)]="availShift.providerId" />
-                </td>
+              <tr *ngFor="let availShift of viewEditProvider.providerAvailableShifts">                
                 <td>
                   <input type="text" class="form-control-sm" name="{{ availShift.dayOfWeek }}" [(ngModel)]="availShift.dayOfWeek" />
                 </td>
@@ -147,15 +143,12 @@
                   <input type="checkbox" class="form-control-sm" name="{{ availShift.hasBeenScheduled }}" [(ngModel)]="availShift.hasBeenScheduled" />
                 </td>
                 <td>                  
-                  <button class="btn btn-danger" (click)="removeShift(availShift.providerId)">
+                  <button class="btn btn-danger" (click)="removeShift(availShift)">
                     <i class="fa fa-trash"></i>
                   </button>
                 </td>
               </tr>
-              <tr *ngIf="!isDisabled">
-                <td>
-                  <input type="text" class="form-control-sm" name="newShiftProviderId" [(ngModel)]="newShift.providerId" />
-                </td>
+              <tr *ngIf="!isDisabled">                
                 <td>
                   <input type="text" class="form-control-sm" name="newShiftDayOfWeek" [(ngModel)]="newShift.dayOfWeek" />
                 </td>
@@ -181,7 +174,7 @@
       </div>
       <div style="text-align:center" *ngIf="!isDisabled">
         <button type="button" class="btn btn-warning">Cancel</button> &nbsp;&nbsp;
-        <button type="button" class="btn btn-primary">Save Changes</button>
+        <button type="button" class="btn btn-primary" (click)="saveProvider(viewEditProvider)">Save Changes</button>
       </div>
 
 

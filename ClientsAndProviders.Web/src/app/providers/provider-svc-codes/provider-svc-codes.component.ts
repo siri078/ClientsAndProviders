@@ -8,17 +8,17 @@ import { ProvidersService } from '../provider.service';
   styleUrls: ['./provider-svc-codes.component.css']
 })
 export class ProviderSvcCodesComponent implements OnInit {
-  public ProviderSvcCodes: IProviderSvcCodes[];
-  public ProviderId: number;
-  public SvcCode: string;
+  providerSvcCodes: any = {};
+  newSvcCode: any = {};  
 
   constructor(private _providersService: ProvidersService) { }
 
   ngOnInit() {
   }
 
-  getProviderSvcCodes(providerId) {
-    return this._providersService.getProviderSvcCodes(providerId);
+  addSvcCode() {
+    console.log(this.newSvcCode);
+    this.providerSvcCodes.push(this.newSvcCode);
+    this.newSvcCode = {};
   }
-
 }

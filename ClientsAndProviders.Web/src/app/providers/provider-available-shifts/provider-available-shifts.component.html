@@ -1,3 +1,43 @@
-<p>
-  provider-available-shifts works!
-</p>
+<div class="form-group col-md-9">
+  <label><strong>Available Shifts</strong></label>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>DayOfWeek</th>
+      <th>Shift</th>
+      <th>Scheduled?</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let availShift of viewEditProvider.providerAvailableShifts">
+      <td>
+        <input type="text" class="form-control input-xs" name="{{ availShift.dayOfWeek }}" [(ngModel)]="availShift.dayOfWeek" />
+      </td>
+      <td>
+        <input type="text" class="form-control input-xs" name="{{ availShift.shift }}" [(ngModel)]="availShift.shift" />
+      </td>
+      <td align="center">
+        <input type="checkbox" class="form-control-sm" name="{{ availShift.hasBeenScheduled }}" [(ngModel)]="availShift.hasBeenScheduled" />
+      </td>
+      <td>
+        <button class="btn btn-danger" (click)="removeShift(availShift)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" class="form-control input-xs" name="newShiftDayOfWeek" [(ngModel)]="newShift.dayOfWeek" />
+      </td>
+      <td>
+        <input type="text" class="form-control input-xs" name="newShiftShift" [(ngModel)]="newShift.shift" />
+      </td>
+      <td align="center">
+        <input type="checkbox" class="form-control-sm" name="newShiftHasBeenScheduled" [(ngModel)]="newShift.hasBeenScheduled" />
+      </td>
+      <td>
+        <button class="btn-success" (click)="addShift(newShift)">
+          <i class="fa fa-plus"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

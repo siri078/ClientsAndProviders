@@ -1,18 +1,16 @@
 <mat-dialog-content>
-  <form>
-    <h2>ProviderId:({{ viewProvider.providerId }})</h2>
-    <fieldset ng-disabled="isEditable">
-      <div class="form-group">
-        <label>First Name</label>
-        <input type="text" class="form-control" name="firstName" [(ngModel)]="provider.firstName" />        
-      </div>
-      <input type="text" name="FirstName" [(ngModel)]="viewProvider.FirstName">
-      <!--
-      <input type="text" name="LastName" [(ngModel)]="viewProvider.LastName">
-      <input type="text" name="Address" [(ngModel)]="viewProvider.Address">
-      <input type="text" name="City" [(ngModel)]="viewProvider.City">
-          -->
-    </fieldset>
+  <div>
+    <h2>ProviderId:({{ data.comp.providerId }})</h2>
+    <fieldset ng-disabled="isDisabled">
+      <table class="table table-bordered table-striped table-hover">
+        <tr>
+          <td align="right">&nbsp;FirstName</td>
+          <td><input type="text" name="FirstName" [(ngModel)]="data.comp.firstName"></td>
+          <td align="right">&nbsp;LastName</td>
+          <td><input type="text" name="LastName" [(ngModel)]="data.comp.lastName"></td>
+        </tr>
+      </table>
+</fieldset>
     <!--
     <table class="table table-bordered table-striped table-hover">
       <tr>
@@ -74,7 +72,7 @@
     </div>
   </div>-->
 
-  </form>
+  </div>
 </mat-dialog-content>
 
 <mat-dialog-actions>

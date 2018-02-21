@@ -1,9 +1,23 @@
-<table>
-  <!--<tr *ngFor="let svcCd of ProviderSvcCodes">
-    <th>Svc Codes</th>
-    <td>
-      {{ svcCd.SvcCode }}
-    </td>
-  </tr>
-</table>-->
-<p>butt works</p>
+<div class="form-group col-md-3">
+  <label><strong>SvcCodes</strong></label>
+  <table>
+    <tr *ngFor="let svcCd of providerSvcCodes">
+      <td><input type="text" class="form-control-sm" name="{{ svcCd.svcCode }}" [(ngModel)]="svcCd.svcCode" /></td>
+      <td>
+        <button class="btn btn-danger" (click)="removeSvcCode(svcCd.svcCode)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" class="form-control-sm" name="newSvcCodeValue" [(ngModel)]="newSvcCode.svcCode" />
+      </td>
+      <td>
+        <button class="btn-success" (click)="addSvcCode(newSvcCode)">
+          <i class="fa fa-plus"></i>
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>
