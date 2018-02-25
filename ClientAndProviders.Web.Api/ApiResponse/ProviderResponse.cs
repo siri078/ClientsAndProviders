@@ -21,6 +21,7 @@ namespace ClientAndProviders.Web.Api.ApiResponse
         public string CreatedBy { get; set; }
         public DateTime? LastModifiedDate { get; set; }
         public string LastModifiedBy { get; set; }
+		public bool IsTherapist { get; set; }
 
 		public ProviderAvailableShift[] ProviderAvailableShifts { get; set; }		
 		public ProviderSvcCode[] ProviderSvcCodes { get; set; }

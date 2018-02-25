@@ -8,122 +8,51 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using AutoMapper;
+using ClientAndProviders.Web.Api.ApiResponse;
 using ClientAndProviders.Web.Api.Models;
 
 namespace ClientAndProviders.Web.Api.Controllers
 {
-    public class ProviderSvcCodesController : ApiController
+	[RoutePrefix("api/providerSvcCodes")]
+	public class ProviderSvcCodesController : ApiController
     {
         private ClientsProvidersDbEntities db = new ClientsProvidersDbEntities();
 
-        // GET: api/ProviderSvcCodes
-        public IQueryable<ProviderSvcCode> GetProviderSvcCodes()
-        {
-            return db.ProviderSvcCodes;
-        }
+		/// <summary>
+		/// Gets all svc codes for all providers
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("")]
+		public HttpResponseMessage Get()
+		{
+			ProviderSvcCodesResponse[] response = null;
+			using (var db = new ClientsProvidersDbEntities())
+			{
+				var providerSvcCodes = db.ProviderSvcCodes.ToArray();
+				response = Mapper.Map<ProviderSvcCode[], ProviderSvcCodesResponse[]>(providerSvcCodes);
 
-        // GET: api/ProviderSvcCodes/5
-        [ResponseType(typeof(ProviderSvcCode))]
-        public IHttpActionResult GetProviderSvcCode(int id)
-        {
-            ProviderSvcCode providerSvcCode = db.ProviderSvcCodes.Find(id);
-            if (providerSvcCode == null)
-            {
-                return NotFound();
-            }
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, response);
+		}
 
-            return Ok(providerSvcCode);
-        }
-
-        // PUT: api/ProviderSvcCodes/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutProviderSvcCode(int id, ProviderSvcCode providerSvcCode)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != providerSvcCode.ProviderId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(providerSvcCode).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProviderSvcCodeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/ProviderSvcCodes
-        [ResponseType(typeof(ProviderSvcCode))]
-        public IHttpActionResult PostProviderSvcCode(ProviderSvcCode providerSvcCode)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.ProviderSvcCodes.Add(providerSvcCode);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (ProviderSvcCodeExists(providerSvcCode.ProviderId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = providerSvcCode.ProviderId }, providerSvcCode);
-        }
-
-        // DELETE: api/ProviderSvcCodes/5
-        [ResponseType(typeof(ProviderSvcCode))]
-        public IHttpActionResult DeleteProviderSvcCode(int id)
-        {
-            ProviderSvcCode providerSvcCode = db.ProviderSvcCodes.Find(id);
-            if (providerSvcCode == null)
-            {
-                return NotFound();
-            }
-
-            db.ProviderSvcCodes.Remove(providerSvcCode);
-            db.SaveChanges();
-
-            return Ok(providerSvcCode);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Gets all provider svcCodes for a given providerId
+		/// </summary>
+		/// <param name="id">providerId</param>
+		/// <returns>an array of provider svcCodes</returns>
+		[HttpGet]
+		public HttpResponseMessage Get(int id)
+		{
+			ProviderSvcCodesResponse[] response = null;
+			using (var db = new ClientsProvidersDbEntities())
+			{
+				var providerSvcCodes = db.ProviderSvcCodes.Where(x => x.ProviderId == id).ToArray();
+				response = Mapper.Map<ProviderSvcCode[], ProviderSvcCodesResponse[]>(providerSvcCodes);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, response);
+		}		
 
         private bool ProviderSvcCodeExists(int id)
         {

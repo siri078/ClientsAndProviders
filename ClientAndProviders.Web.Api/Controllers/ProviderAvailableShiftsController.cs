@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AutoMapper;
+using ClientAndProviders.Web.Api.ApiResponse;
+using ClientAndProviders.Web.Api.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -8,126 +11,148 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using ClientAndProviders.Web.Api.Models;
 
 namespace ClientAndProviders.Web.Api.Controllers
 {
-    public class ProviderAvailableShiftsController : ApiController
+	[RoutePrefix("api/providerAvailableShifts")]
+	public class ProviderAvailableShiftsController : ApiController
     {
-        private ClientsProvidersDbEntities db = new ClientsProvidersDbEntities();
+		/// <summary>
+		/// Gets All ProviderAvailableShifts
+		/// </summary>
+		/// <returns>All provider available shifts (for every provider)</returns>
+		[HttpGet]
+		[Route("")]
+		public HttpResponseMessage Get()
+		{
+			ProviderAvailableShiftResponse[] response = null;
+			using (var db = new ClientsProvidersDbEntities())
+			{
+				var providerAvailableShifts = db.ProviderAvailableShifts.ToArray();
+				response = Mapper.Map<ProviderAvailableShift[], ProviderAvailableShiftResponse[]>(providerAvailableShifts);
 
-        // GET: api/ProviderAvailableShifts
-        public IQueryable<ProviderAvailableShift> GetProviderAvailableShifts()
-        {
-            return db.ProviderAvailableShifts;
-        }
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, response);
+		}
 
-        // GET: api/ProviderAvailableShifts/5
-        [ResponseType(typeof(ProviderAvailableShift))]
-        public IHttpActionResult GetProviderAvailableShift(int id)
-        {
-            ProviderAvailableShift providerAvailableShift = db.ProviderAvailableShifts.Find(id);
-            if (providerAvailableShift == null)
-            {
-                return NotFound();
-            }
+		/// <summary>
+		/// Gets all providers available shifts for a given providerId
+		/// </summary>
+		/// <param name="id">providerId</param>
+		/// <returns>an array of providers available shifts</returns>
+		[HttpGet]
+		public HttpResponseMessage Get(int id)
+		{
+			ProviderAvailableShiftResponse[] response = null;
+			using (var db = new ClientsProvidersDbEntities())
+			{
+				var providerAvailableShifts = db.ProviderAvailableShifts.Where(x => x.ProviderId == id).ToArray();
+				response = Mapper.Map<ProviderAvailableShift[], ProviderAvailableShiftResponse[]>(providerAvailableShifts);				
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, response);
+		}
+								
+		// PUT: api/ProviderAvailableShifts/5        
+		[HttpPut]
+		public IHttpActionResult PutProviderAvailableShift(int id, ProviderAvailableShift providerAvailableShift)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-            return Ok(providerAvailableShift);
-        }
+			if (id != providerAvailableShift.ProviderId)
+			{
+				return BadRequest();
+			}
+			using (var db = new ClientsProvidersDbEntities())
+			{
+				db.Entry(providerAvailableShift).State = EntityState.Modified;
 
-        // PUT: api/ProviderAvailableShifts/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutProviderAvailableShift(int id, ProviderAvailableShift providerAvailableShift)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+				try
+				{
+					db.SaveChanges();
+				}
+				catch (DbUpdateConcurrencyException)
+				{
+					if (!ProviderAvailableShiftExists(id))
+					{
+						return NotFound();
+					}
+					else
+					{
+						throw;
+					}
+				}
 
-            if (id != providerAvailableShift.ProviderId)
-            {
-                return BadRequest();
-            }
+				return StatusCode(HttpStatusCode.NoContent);
+			}
+		}
+		private bool ProviderAvailableShiftExists(int id)
+		{
+			using (var db = new ClientsProvidersDbEntities())
+			{
+				return db.ProviderAvailableShifts.Count(e => e.ProviderId == id) > 0;
+				}
+		}
+			/*
+			// POST: api/ProviderAvailableShifts
+			[ResponseType(typeof(ProviderAvailableShift))]
+			public IHttpActionResult PostProviderAvailableShift(ProviderAvailableShift providerAvailableShift)
+			{
+				if (!ModelState.IsValid)
+				{
+					return BadRequest(ModelState);
+				}
 
-            db.Entry(providerAvailableShift).State = EntityState.Modified;
+				db.ProviderAvailableShifts.Add(providerAvailableShift);
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProviderAvailableShiftExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+				try
+				{
+					db.SaveChanges();
+				}
+				catch (DbUpdateException)
+				{
+					if (ProviderAvailableShiftExists(providerAvailableShift.ProviderId))
+					{
+						return Conflict();
+					}
+					else
+					{
+						throw;
+					}
+				}
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+				return CreatedAtRoute("DefaultApi", new { id = providerAvailableShift.ProviderId }, providerAvailableShift);
+			}
 
-        // POST: api/ProviderAvailableShifts
-        [ResponseType(typeof(ProviderAvailableShift))]
-        public IHttpActionResult PostProviderAvailableShift(ProviderAvailableShift providerAvailableShift)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+			// DELETE: api/ProviderAvailableShifts/5
+			[ResponseType(typeof(ProviderAvailableShift))]
+			public IHttpActionResult DeleteProviderAvailableShift(int id)
+			{
+				ProviderAvailableShift providerAvailableShift = db.ProviderAvailableShifts.Find(id);
+				if (providerAvailableShift == null)
+				{
+					return NotFound();
+				}
 
-            db.ProviderAvailableShifts.Add(providerAvailableShift);
+				db.ProviderAvailableShifts.Remove(providerAvailableShift);
+				db.SaveChanges();
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (ProviderAvailableShiftExists(providerAvailableShift.ProviderId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+				return Ok(providerAvailableShift);
+			}
 
-            return CreatedAtRoute("DefaultApi", new { id = providerAvailableShift.ProviderId }, providerAvailableShift);
-        }
+			protected override void Dispose(bool disposing)
+			{
+				if (disposing)
+				{
+					db.Dispose();
+				}
+				base.Dispose(disposing);
+			}
+			*/
 
-        // DELETE: api/ProviderAvailableShifts/5
-        [ResponseType(typeof(ProviderAvailableShift))]
-        public IHttpActionResult DeleteProviderAvailableShift(int id)
-        {
-            ProviderAvailableShift providerAvailableShift = db.ProviderAvailableShifts.Find(id);
-            if (providerAvailableShift == null)
-            {
-                return NotFound();
-            }
 
-            db.ProviderAvailableShifts.Remove(providerAvailableShift);
-            db.SaveChanges();
 
-            return Ok(providerAvailableShift);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool ProviderAvailableShiftExists(int id)
-        {
-            return db.ProviderAvailableShifts.Count(e => e.ProviderId == id) > 0;
-        }
-    }
+		}
 }

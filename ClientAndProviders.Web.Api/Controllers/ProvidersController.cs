@@ -8,39 +8,46 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 
 namespace ClientAndProviders.Web.Api.Controllers
 {
-    [RoutePrefix("api/providers")]
-    public class ProvidersController : ApiController
-    {
+	[RoutePrefix("api/providers")]
+	public class ProvidersController : ApiController
+	{
 
-        [HttpGet]
-        [Route("")]
-        public HttpResponseMessage Get()
-        {
-            ProviderResponse[] response = null;
-            using (var db = new ClientsProvidersDbEntities())
-            {
-                var providers = db.Providers.ToArray();
-                response = Mapper.Map<Provider[], ProviderResponse[]>(providers);
-
-            }
-                return Request.CreateResponse(HttpStatusCode.OK, response);
-        }
-
-		public HttpResponseMessage Get(int id)
+		[HttpGet]
+		[Route("")]
+		public HttpResponseMessage Get()
 		{
 			ProviderResponse[] response = null;
 			using (var db = new ClientsProvidersDbEntities())
 			{
-				var provider = db.Providers.Find(id);
-				response = Mapper.Map<Provider, ProviderResponse[]>(provider);
+				var providers = db.Providers.ToArray();
+				response = Mapper.Map<Provider[], ProviderResponse[]>(providers);
 
 			}
 			return Request.CreateResponse(HttpStatusCode.OK, response);
 		}
-		
+
+		/// <summary>
+		/// gets a provider for a given providerId
+		/// </summary>
+		/// <param name="id">providerId</param>
+		/// <returns>a provider matching the given providerId</returns>
+		[HttpGet]
+		public HttpResponseMessage Get(int id)
+		{
+			ProviderResponse response = null;
+			using (var db = new ClientsProvidersDbEntities())
+			{
+				var provider = db.Providers.Where(x => x.ProviderId == id).FirstOrDefault();
+				response = Mapper.Map<Provider, ProviderResponse>(provider);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, response);
+		}
+
+
 		/// <summary>
 		/// PUT: sends and update to the provider object
 		/// </summary>
@@ -56,13 +63,25 @@ namespace ClientAndProviders.Web.Api.Controllers
 				throw new HttpResponseException(HttpStatusCode.NotFound);
 			}
 
+			ProviderResponse response = null;
+			using (var db = new ClientsProvidersDbEntities())
+			{
+				response = Mapper.Map<Provider, ProviderResponse>(provider);
+				return Request.CreateResponse(HttpStatusCode.OK, response);
+			}
+		}
+
+		[HttpPost]
+		public HttpResponseMessage Post(Provider provider)
+		{			
 			ProviderResponse[] response = null;
 			using (var db = new ClientsProvidersDbEntities())
-			{				
-				response = Mapper.Map<Provider, ProviderResponse[]>(provider);				
-				return Request.CreateResponse(HttpStatusCode.OK, response);			
-			}			
+			{
+				response = Mapper.Map<Provider, ProviderResponse[]>(provider);
+				return Request.CreateResponse(HttpStatusCode.OK, response);
+			}
 		}
+
 
 		//// GET: api/Providers/5
 		//[ResponseType(typeof(Provider))]
