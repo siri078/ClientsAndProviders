@@ -27,10 +27,11 @@ export class ProvidersComponent implements OnInit {
   newSvcCode: any = {};
   newShift: any = {};
   @Input() modalOpen: boolean = false;
+    
 
   constructor(public dialog1: MatDialog, private dialog: ModalComponent, public providersService: ProvidersService, private toastr: ToastrService) { }
   ngOnInit() {
-    this.getProviders();    
+    this.getProviders();
   }  
   
   getProviders() {
@@ -98,6 +99,7 @@ export class ProvidersComponent implements OnInit {
     else {
       //this is one we have edited
       this.providersService.putProvider(provider);
+      this.toastr.success("Success, you have updated this provider in the Database!", "UpdatedProvider")
     }
   }
 
@@ -120,5 +122,38 @@ export class ProvidersComponent implements OnInit {
   cancelNewProvider(){
     this.newProvider = {};
     this.providerForm = false;
+  }
+
+  filterBy(filter: string, event) {
+    console.log(filter);
+    console.log(event);
+    switch (filter) {
+      case 'active':
+        if (event.target.checked) {
+          console.log('filter by active flag that is CHECKED');
+          this.providers = this.providers.filter(provider => {
+            return provider.active = true
+        });
+        }
+        else {
+          console.log('filter by active flag that is NOT CHECKED');
+        }
+        break;
+      case 'inactive':
+        if (event.target.checked) {
+          console.log('filter by inactive flag that is CHECKED');
+        }
+        else {
+          console.log('filter by inactive flag that is NOT CHECKED');
+        }
+        break;    
+      case 'istherapist':
+        if (event.target.checked) {
+          console.log('filter by istherapist flag that is CHECKED');
+        }
+        else {
+          console.log('filter by istherapist flag that is NOT CHECKED');
+        }
+    }
   }
 }
