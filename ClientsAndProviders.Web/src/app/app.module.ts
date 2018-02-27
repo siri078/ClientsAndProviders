@@ -23,6 +23,7 @@ import { ProviderSvcCodesComponent } from './providers/provider-svc-codes/provid
 import { NewProviderFormComponent } from './providers/new-provider-form/new-provider-form.component';
 import { ViewEditProviderComponent } from './providers/view-edit-provider/view-edit-provider.component';
 import { ProviderAvailableShiftsComponent } from './providers/provider-available-shifts/provider-available-shifts.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [BrowserModule,
@@ -33,7 +34,8 @@ import { ProviderAvailableShiftsComponent } from './providers/provider-available
     HttpModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxPaginationModule
   ],  
   declarations: [
     AppComponent,
@@ -44,7 +46,7 @@ import { ProviderAvailableShiftsComponent } from './providers/provider-available
     NewProviderFormComponent,
     ProviderSvcCodesComponent,
     ViewEditProviderComponent,
-    ProviderAvailableShiftsComponent
+    ProviderAvailableShiftsComponent    
   ],
   entryComponents: [ModalComponent, NewProviderFormComponent, ViewEditProviderComponent],
   providers: [ProvidersService, HttpClientModule],

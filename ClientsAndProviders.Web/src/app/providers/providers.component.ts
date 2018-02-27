@@ -27,15 +27,34 @@ export class ProvidersComponent implements OnInit {
   newSvcCode: any = {};
   newShift: any = {};
   @Input() modalOpen: boolean = false;
-    
+
+  loading = false;
+  total = 0;
+  page = 1;
+  limit = 20;
 
   constructor(public dialog1: MatDialog, private dialog: ModalComponent, public providersService: ProvidersService, private toastr: ToastrService) { }
   ngOnInit() {
     this.getProviders();
   }  
   
-  getProviders() {
-    this.providersService.getProviderList();
+  getProviders() {    
+    this.providersService.getProviderList();    
+  }
+
+  goToPage(n: number): void {
+    this.page = n;
+    this.getProviders();
+  }
+
+  onNext(): void {
+    this.page++;
+    this.getProviders();
+  }
+
+  onPrev(): void {
+    this.page--;
+    this.getProviders();
   }
   
   showEditProviderForm(provider: IProvider){

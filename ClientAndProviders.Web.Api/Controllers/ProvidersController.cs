@@ -67,6 +67,17 @@ namespace ClientAndProviders.Web.Api.Controllers
 			using (var db = new ClientsProvidersDbEntities())
 			{
 				response = Mapper.Map<Provider, ProviderResponse>(provider);
+
+				db.Providers.Add(provider);
+				try
+				{
+					db.SaveChanges();
+				}
+				catch (Exception ex)
+				{
+					var myError = ex.Message;
+				}
+
 				return Request.CreateResponse(HttpStatusCode.OK, response);
 			}
 		}
