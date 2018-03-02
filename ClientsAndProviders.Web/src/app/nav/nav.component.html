@@ -11,9 +11,9 @@
             Providers
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">All Providers</a>
-            <a class="dropdown-item" href="#">Assigned Providers</a>
-            <a class="dropdown-item" href="#">Unassigned Providers</a>
+            <a class="dropdown-item" routerLink="providers">All Providers</a>
+            <a class="dropdown-item" routerLink="providerShiftsScheduled">Assigned Providers</a>
+            <a class="dropdown-item" routerLink="providerShiftsNotScheduled">Unassigned Providers</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -21,9 +21,9 @@
               Clients
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">All Clients</a>
-              <a class="dropdown-item" href="#">Clients needing Assignment</a>
-              <a class="dropdown-item" href="#">Assigned Clients</a>
+              <a class="dropdown-item" routerLink="clients">All Clients</a>
+              <a class="dropdown-item" routerLink="clientsAssigned">Assigned Clients</a>
+              <a class="dropdown-item" routerLink="clientsNeedingAssignment">Clients Needing Provider</a>
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -38,3 +38,4 @@
       </ul>
     </div>
   </nav>
+<router-outlet></router-outlet>

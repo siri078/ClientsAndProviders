@@ -8,6 +8,5 @@ import { Router } from '@angular/router';
 })
 
 export class NavbarComponent {
-  appName: string = "Lamar's Clients and Providers";
+  appName: string = "Lamar's Clients and Providers"; 
 }
-

@@ -24,6 +24,11 @@ import { NewProviderFormComponent } from './providers/new-provider-form/new-prov
 import { ViewEditProviderComponent } from './providers/view-edit-provider/view-edit-provider.component';
 import { ProviderAvailableShiftsComponent } from './providers/provider-available-shifts/provider-available-shifts.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ProviderShiftsScheduledComponent } from './provider-shifts-scheduled/provider-shifts-scheduled.component';
+import { ProviderShiftsNotScheduledComponent } from './provider-shifts-not-scheduled/provider-shifts-not-scheduled.component';
+import { ClientsComponent } from './clients/clients.component';
+import { ClientsAssignedComponent } from './clients-assigned/clients-assigned.component';
+import { ClientsUnassignedComponent } from './clients-unassigned/clients-unassigned.component';
 
 @NgModule({
   imports: [BrowserModule,
@@ -46,7 +51,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NewProviderFormComponent,
     ProviderSvcCodesComponent,
     ViewEditProviderComponent,
-    ProviderAvailableShiftsComponent    
+    ProviderAvailableShiftsComponent,
+    ProviderShiftsScheduledComponent,
+    ProviderShiftsNotScheduledComponent,
+    ClientsComponent,
+    ClientsAssignedComponent,
+    ClientsUnassignedComponent    
   ],
   entryComponents: [ModalComponent, NewProviderFormComponent, ViewEditProviderComponent],
   providers: [ProvidersService, HttpClientModule],

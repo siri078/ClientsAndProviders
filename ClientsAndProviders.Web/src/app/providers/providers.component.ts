@@ -26,7 +26,7 @@ export class ProvidersComponent implements OnInit {
   isDisabled: boolean = true;
   newSvcCode: any = {};
   newShift: any = {};
-  @Input() modalOpen: boolean = false;
+  @Input() modalOpen: boolean = false;  
 
   loading = false;
   total = 0;
@@ -144,8 +144,8 @@ export class ProvidersComponent implements OnInit {
   }
 
   filterBy(filter: string, event) {
-    console.log(filter);
-    console.log(event);
+    console.log('filter:' + filter);
+    console.log('event: ' + event);
     switch (filter) {
       case 'active':
         if (event.target.checked) {
