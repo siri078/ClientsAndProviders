@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ClientsProvidersDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ClientsProvidersDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ClientId" />
@@ -79,6 +79,7 @@ warning 6002: The table/view 'ClientsProvidersDb.dbo.ClientSvcCode' does not hav
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="20" />
           <Property Name="LastModifiedDate" Type="datetime" />
           <Property Name="LastModifiedBy" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsTherapist" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderAvailableShift' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -127,6 +128,30 @@ warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderSvcCode' does not h
             <PropertyRef Name="Shift" />
           </Key>
           <Property Name="Shift" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderAndProviderAvailableShifts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ProviderAndProviderAvailableShifts">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="DayOfWeek" />
+          </Key>
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="1" />
+          <Property Name="HireDate" Type="datetime" />
+          <Property Name="EmailAddr" Type="nvarchar" MaxLength="100" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="DayOfWeek" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Shift" Type="varchar" MaxLength="20" />
+          <Property Name="HasBeenScheduled" Type="bit" />
         </EntityType>
         <Association Name="FK_ClientShiftAssignment_ClientId">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
@@ -310,6 +335,25 @@ warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderSvcCode' does not h
     [ProviderSvcCode].[LastModifiedBy] AS [LastModifiedBy]
     FROM [dbo].[ProviderSvcCode] AS [ProviderSvcCode]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ProviderAndProviderAvailableShifts" EntityType="Self.ProviderAndProviderAvailableShifts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ProviderAndProviderAvailableShifts].[ProviderId] AS [ProviderId], 
+    [ProviderAndProviderAvailableShifts].[FirstName] AS [FirstName], 
+    [ProviderAndProviderAvailableShifts].[LastName] AS [LastName], 
+    [ProviderAndProviderAvailableShifts].[Phone] AS [Phone], 
+    [ProviderAndProviderAvailableShifts].[City] AS [City], 
+    [ProviderAndProviderAvailableShifts].[Address] AS [Address], 
+    [ProviderAndProviderAvailableShifts].[ZipCode] AS [ZipCode], 
+    [ProviderAndProviderAvailableShifts].[Active] AS [Active], 
+    [ProviderAndProviderAvailableShifts].[Gender] AS [Gender], 
+    [ProviderAndProviderAvailableShifts].[HireDate] AS [HireDate], 
+    [ProviderAndProviderAvailableShifts].[EmailAddr] AS [EmailAddr], 
+    [ProviderAndProviderAvailableShifts].[Notes] AS [Notes], 
+    [ProviderAndProviderAvailableShifts].[DayOfWeek] AS [DayOfWeek], 
+    [ProviderAndProviderAvailableShifts].[Shift] AS [Shift], 
+    [ProviderAndProviderAvailableShifts].[HasBeenScheduled] AS [HasBeenScheduled]
+    FROM [dbo].[ProviderAndProviderAvailableShifts] AS [ProviderAndProviderAvailableShifts]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_ClientShiftAssignment_ClientId" Association="Self.FK_ClientShiftAssignment_ClientId">
             <End Role="Client" EntitySet="Client" />
             <End Role="ClientShiftAssignment" EntitySet="ClientShiftAssignment" />
@@ -355,8 +399,7 @@ warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderSvcCode' does not h
             <End Role="ProviderSvcCode" EntitySet="ProviderSvcCode" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ClientsProvidersDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -408,6 +451,7 @@ warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderSvcCode' does not h
           <Property Name="LastModifiedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProviderAvailableShifts" Relationship="Self.FK_ProviderAvailableShift_ProviderId" FromRole="Provider" ToRole="ProviderAvailableShift" />
           <NavigationProperty Name="ProviderSvcCodes" Relationship="Self.FK_ProviderSvcCode_ProviderId" FromRole="Provider" ToRole="ProviderSvcCode" />
+          <Property Name="IsTherapist" Type="Boolean" />
         </EntityType>
         <EntityType Name="SvcCode">
           <Key>
@@ -671,7 +715,30 @@ warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderSvcCode' does not h
             <End Role="WorkShift" EntitySet="WorkShifts" />
             <End Role="ProviderAvailableShift" EntitySet="ProviderAvailableShifts" />
           </AssociationSet>
+          <EntitySet Name="ProviderAndProviderAvailableShifts" EntityType="ClientsProvidersDbModel.ProviderAndProviderAvailableShift" />
         </EntityContainer>
+        <EntityType Name="ProviderAndProviderAvailableShift">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="Active" />
+            <PropertyRef Name="DayOfWeek" />
+          </Key>
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="HireDate" Type="DateTime" Precision="3" />
+          <Property Name="EmailAddr" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DayOfWeek" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Shift" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HasBeenScheduled" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -706,6 +773,7 @@ warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderSvcCode' does not h
           <EntitySetMapping Name="Providers">
             <EntityTypeMapping TypeName="ClientsProvidersDbModel.Provider">
               <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="IsTherapist" ColumnName="IsTherapist" />
                 <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -795,6 +863,27 @@ warning 6002: The table/view 'ClientsProvidersDb.dbo.ProviderSvcCode' does not h
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
                 <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProviderAndProviderAvailableShifts">
+            <EntityTypeMapping TypeName="ClientsProvidersDbModel.ProviderAndProviderAvailableShift">
+              <MappingFragment StoreEntitySet="ProviderAndProviderAvailableShifts">
+                <ScalarProperty Name="HasBeenScheduled" ColumnName="HasBeenScheduled" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="EmailAddr" ColumnName="EmailAddr" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

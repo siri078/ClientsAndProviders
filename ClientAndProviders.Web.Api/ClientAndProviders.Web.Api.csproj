@@ -204,6 +204,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiResponse\ProviderAndProviderAvailableShiftResponse.cs" />
     <Compile Include="ApiResponse\ProviderAvailableShiftResponse.cs" />
     <Compile Include="ApiResponse\ProviderResponse.cs" />
     <Compile Include="ApiResponse\ProviderSvcCodeResponse.cs" />
@@ -283,6 +284,9 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Provider.cs">
+      <DependentUpon>ClientsAndProvidersDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProviderAndProviderAvailableShift.cs">
       <DependentUpon>ClientsAndProvidersDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProviderAvailableShift.cs">

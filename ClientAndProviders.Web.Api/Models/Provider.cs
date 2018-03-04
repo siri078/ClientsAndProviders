@@ -37,6 +37,7 @@ namespace ClientAndProviders.Web.Api.Models
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
         public string LastModifiedBy { get; set; }
+        public Nullable<bool> IsTherapist { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProviderAvailableShift> ProviderAvailableShifts { get; set; }

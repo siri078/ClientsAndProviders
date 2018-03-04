@@ -34,5 +34,6 @@ namespace ClientAndProviders.Web.Api.Models
         public virtual DbSet<ClientSvcCode> ClientSvcCodes { get; set; }
         public virtual DbSet<ProviderAvailableShift> ProviderAvailableShifts { get; set; }
         public virtual DbSet<ProviderSvcCode> ProviderSvcCodes { get; set; }
+        public virtual DbSet<ProviderAndProviderAvailableShift> ProviderAndProviderAvailableShifts { get; set; }
     }
 }

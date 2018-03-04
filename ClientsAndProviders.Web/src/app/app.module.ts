@@ -10,11 +10,15 @@ import { ProvidersComponent } from './providers/providers.component';
 import { NavbarComponent } from './nav/nav.component';
 
 import { ProvidersService } from './providers/provider.service'
+import { ProviderShiftScheduledServiceService } from './provider-shifts-scheduled/provider-shift-scheduled-service.service';
+import { ProviderShiftNotScheduledServiceService } from './provider-shifts-not-scheduled/provider-shift-not-scheduled-service.service';
+
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ModalComponent } from './modal/modal.component';
 import { ToastrModule } from 'ngx-toastr';
 
 import { MultiSelectComponentComponent } from './multi-select-component/multi-select-component.component';
+import { CallbackPipe } from './shared/callback.pipe';
 
 
 import { MatDialogModule } from '@angular/material';
@@ -56,10 +60,11 @@ import { ClientsUnassignedComponent } from './clients-unassigned/clients-unassig
     ProviderShiftsNotScheduledComponent,
     ClientsComponent,
     ClientsAssignedComponent,
-    ClientsUnassignedComponent    
+    ClientsUnassignedComponent,
+    CallbackPipe
   ],
   entryComponents: [ModalComponent, NewProviderFormComponent, ViewEditProviderComponent],
-  providers: [ProvidersService, HttpClientModule],
+  providers: [ProvidersService, ProviderShiftScheduledServiceService, ProviderShiftNotScheduledServiceService, HttpClientModule],
   bootstrap: [AppComponent]
 })
 

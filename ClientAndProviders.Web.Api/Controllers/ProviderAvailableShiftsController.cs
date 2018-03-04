@@ -25,11 +25,11 @@ namespace ClientAndProviders.Web.Api.Controllers
 		[Route("")]
 		public HttpResponseMessage Get()
 		{
-			ProviderAvailableShiftResponse[] response = null;
+			ProviderAndProviderAvailableShiftResponse[] response = null;
 			using (var db = new ClientsProvidersDbEntities())
 			{
-				var providerAvailableShifts = db.ProviderAvailableShifts.ToArray();
-				response = Mapper.Map<ProviderAvailableShift[], ProviderAvailableShiftResponse[]>(providerAvailableShifts);
+				var providerandProviderAvailableShifts = db.ProviderAndProviderAvailableShifts.ToArray();
+				response = Mapper.Map<ProviderAndProviderAvailableShift[], ProviderAndProviderAvailableShiftResponse[]>(providerandProviderAvailableShifts);
 
 			}
 			return Request.CreateResponse(HttpStatusCode.OK, response);

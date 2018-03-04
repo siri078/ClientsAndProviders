@@ -1,3 +1,49 @@
-<p>
-  provider-shifts-not-scheduled works!
-</p>
+<div class="container">
+  <div class="col-md-12">
+    <h1>Provider Available Shifts (Unscheduled)</h1>
+    <hr />
+    <br />
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <!--
+          <th><input type="text" class="form-control-sm" name="providerId" [(ngModel)]="filter.providerId" step="1" placeholder="providerId"></th>
+          <th><input type="text" class="form-control-sm" name="firstName" [(ngModel)]="filter.firstName" placeholder="FirstName"></th>
+          <th><input type="text" class="form-control-sm" name="lastName" [(ngModel)]="filter.lastName" placeholder="LastName"></th>
+          <th><input type="text" class="form-control-sm" name="address" [(ngModel)]="filter.address" placeholder="Address"></th>
+          <th><input type="text" class="form-control-sm" name="city" [(ngModel)]="filter.city" placeholder="City"></th>
+          <th><input type="text" class="form-control-sm" name="zipCode" [(ngModel)]="filter.zipCode" placeholder="ZipCode"></th>
+          <th><input type="checkbox" name="active" [(ngModel)]="filter.active" placeholder="Active"></th>
+          <th><input type="text" class="form-control-sm" name="dayOfWeek" [(ngModel)]="filter.dayOfWeek" placeholder="WeekDay"></th>
+          <th><input type="text" class="form-control-sm" name="shift" [(ngModel)]="filter.shift" placeholder="Shift"></th>
+          <th><input type="text" class="form-control-sm" name="hasBeenScheduled" [(ngModel)]="filter.hasBeenScheduled" placeholder="Scheduled"></th>
+          <th class="text-center">&nbsp;</th>
+          -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ppss of providerShiftNotScheduledSvc.providerAndProviderAvailableShiftList | callback: filterShift  | paginate: { itemsPerPage:10, currentPage: p }">
+          <td>{{ ppss.providerId }}</td>
+          <td>{{ ppss.firstName }}</td>
+          <td>{{ ppss.lastName }}</td>
+          <td>{{ ppss.address }}</td>
+          <td>{{ ppss.city }}</td>
+          <td>{{ ppss.zipCode }}</td>
+          <td>{{ ppss.active }}</td>
+          <td>{{ ppss.dayOfWeek }}</td>
+          <td>{{ ppss.shift }}</td>
+          <td>{{ ppss.hasBeenScheduled }}</td>
+          <td>
+            <button class="bn btn-info">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button class="bn btn-danger">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p =$event"></pagination-controls>
+  </div>
+</div>

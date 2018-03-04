@@ -94,4 +94,22 @@ export interface IApiResponse {
 export interface ICheckableItem {
     value: any;
     isChecked: boolean;
-  }
+}
+
+export interface IProviderAndProviderAvailableShift {
+  providerId: number,
+  firstName: string,
+  lastName: string,
+  phone: string,
+  address: string,
+  city: string,
+  zipCode: string,
+  active: boolean,
+  gender: string,
+  hireDate: string,
+  emailAddr: string,
+  notes: string,
+  dayOfWeek: string,
+  shift: string,
+  hasBeenScheduled: boolean  
+}
