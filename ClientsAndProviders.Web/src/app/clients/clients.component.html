@@ -1,3 +1,48 @@
-<p>
-  clients works!
-</p>
+<div class="container">
+  <div class="col-md-12">
+    <h1>Clients</h1>    
+    <hr />    
+    <br />
+    <table class="table table-bordered table-striped table-hover">
+      <thead>
+        <tr>
+          <th class="text-center">Client ID</th>
+          <th class="text-center">First Name</th>
+          <th class="text-center">Last Name</th>
+          <th class="text-center">Address</th>
+          <th class="text-center">City</th>
+          <th class="text-center">Zip Code</th>
+          <th class="text-center">Active</th>
+          <th class="text-center">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of _clientsService.clientList | paginate: { itemsPerPage:5, currentPage: p }">
+          <td>{{ client.clientId }}</td>
+          <td>{{ client.firstName }}</td>
+          <td>{{ client.lastName }}</td>
+          <td>{{ client.address }}</td>
+          <td>{{ client.city }}</td>
+          <td>{{ client.zipCode }}</td>
+          <td>{{ client.active }}</td>
+          <td>
+            <button class="bn btn-primary">
+              <i class="fa fa-eye"></i>
+            </button>
+            <button class="bn btn-danger">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p =$event"></pagination-controls>
+
+    <button class="btn btn-success">
+      <i class="fa fa-plus"></i>&nbsp;Add New Client
+    </button>
+    <br>
+    <br>
+    </div>
+</div>
+<app-modal></app-modal>

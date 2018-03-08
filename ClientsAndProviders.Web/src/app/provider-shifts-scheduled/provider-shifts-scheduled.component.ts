@@ -12,15 +12,12 @@ import 'rxjs/add/operator/min';
 })
 @Injectable()
 export class ProviderShiftsScheduledComponent implements OnInit {
+  filter: any[]; 
   filterShift(shift: IProviderAndProviderAvailableShift) {
-    return !shift.hasBeenScheduled === false
-      ;
-  }
-
-  providerAndProviderAvailableShift: IProviderAndProviderAvailableShift[];
-  
-
-  constructor(public providerShiftScheduledSvc: ProviderShiftScheduledServiceService) { }  
+    return !shift.hasBeenScheduled === false;
+  }    
+  constructor(public providerShiftScheduledSvc: ProviderShiftScheduledServiceService) {    
+  }  
 
   ngOnInit() {    
     this.getProviderAndProviderAvailableShifts();

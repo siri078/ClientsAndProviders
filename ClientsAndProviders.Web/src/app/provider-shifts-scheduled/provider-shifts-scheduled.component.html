@@ -8,7 +8,7 @@
         <tr>
           <!--
           <th><input type="text" class="form-control-sm" name="providerId" [(ngModel)]="filter.providerId" step="1" placeholder="providerId"></th>
-          <th><input type="text" class="form-control-sm" name="firstName" [(ngModel)]="filter.firstName" placeholder="FirstName"></th>
+          <th><input type="text" class="form-control-sm" placeholder="FirstName"></th>
           <th><input type="text" class="form-control-sm" name="lastName" [(ngModel)]="filter.lastName" placeholder="LastName"></th>
           <th><input type="text" class="form-control-sm" name="address" [(ngModel)]="filter.address" placeholder="Address"></th>
           <th><input type="text" class="form-control-sm" name="city" [(ngModel)]="filter.city" placeholder="City"></th>
@@ -19,9 +19,9 @@
           <th><input type="text" class="form-control-sm" name="hasBeenScheduled" [(ngModel)]="filter.hasBeenScheduled" placeholder="Scheduled"></th>
           <th class="text-center">&nbsp;</th>
           -->
-              </tr>
+        </tr>
       </thead>
-      <tbody>
+      <tbody>        
         <tr *ngFor="let ppss of providerShiftScheduledSvc.providerAndProviderAvailableShiftList | callback: filterShift  | paginate: { itemsPerPage:10, currentPage: p }">
           <td>{{ ppss.providerId }}</td>
           <td>{{ ppss.firstName }}</td>
