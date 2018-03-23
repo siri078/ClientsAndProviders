@@ -24,6 +24,8 @@ export class ProvidersService{
 
     putProvider(provider: IProvider) {
       console.log(provider.firstName);
+      console.log(provider.lastName);
+      console.log(provider.providerSvcCodes[1].SvcCode);
       var body = JSON.stringify(provider);
       var headerOptions = new Headers({ 'Content-Type': 'application/json' });
       var requestOptions = new RequestOptions({ method: RequestMethod.Put, headers: headerOptions });

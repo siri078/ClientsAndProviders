@@ -204,6 +204,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiResponse\ClientResponse.cs" />
     <Compile Include="ApiResponse\ProviderAndProviderAvailableShiftResponse.cs" />
     <Compile Include="ApiResponse\ProviderAvailableShiftResponse.cs" />
     <Compile Include="ApiResponse\ProviderResponse.cs" />

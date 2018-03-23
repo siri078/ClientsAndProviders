@@ -88,6 +88,20 @@ namespace ClientAndProviders.Web.Api.Controllers
 			ProviderResponse[] response = null;
 			using (var db = new ClientsProvidersDbEntities())
 			{
+				var providerRecord = new Provider();
+				providerRecord.FirstName = provider.FirstName;
+				providerRecord.LastName = provider.LastName;
+				providerRecord.Active = provider.Active;
+
+				try
+				{
+					db.SaveChanges();
+				}
+				catch (Exception ex)
+				{
+					string errors = "Could not save provider";
+				}
+
 				response = Mapper.Map<Provider, ProviderResponse[]>(provider);
 				return Request.CreateResponse(HttpStatusCode.OK, response);
 			}

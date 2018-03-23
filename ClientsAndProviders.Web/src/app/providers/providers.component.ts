@@ -109,7 +109,12 @@ export class ProvidersComponent implements OnInit {
     this.viewEditProvider.providerAvailableShifts.splice(shift);
   }
   
-  saveProvider(provider: IProvider){
+  saveProvider(provider: IProvider) {
+    console.log(provider.firstName);
+    console.log(provider.providerSvcCodes[0].SvcCode);
+    console.log(provider.providerSvcCodes[1].SvcCode);
+    console.log(provider.providerSvcCodes[2].SvcCode);
+    
     if (this.isNewForm) {
       //this._providersService.postProviders(provider);
       //this.providersService.addProvider(provider);

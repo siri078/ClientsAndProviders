@@ -52,7 +52,27 @@
           <hr />
           <div class="form-row">
             <div class="form-group col-md-6">
-              <app-provider-svc-codes></app-provider-svc-codes>
+              <label><strong>SvcCodes</strong></label>
+              <table>
+                <tr *ngFor="let svcCd of newProvider.providerSvcCodes">
+                  <td><input type="text" class="form-control-sm" name="{{ svcCd.svcCode }}" [(ngModel)]="newProvider.providerSvcCodes.svcCode" /></td>
+                  <td>
+                    <button class="btn btn-danger" (click)="removeSvcCode(svcCd.svcCode)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" class="form-control-sm" name="newSvcCodeValue" [(ngModel)]="newSvcCode.svcCode" />
+                  </td>
+                  <td>
+                    <button class="btn-success" (click)="addSvcCode(newSvcCode)">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </td>
+                </tr>
+              </table>
             </div>
             <div class="form-group col-md-6">
               <app-provider-available-shifts></app-provider-available-shifts>

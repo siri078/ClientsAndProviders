@@ -9,40 +9,40 @@ import { ProvidersService } from '../provider.service';
   styleUrls: ['./view-edit-provider.component.css']
 })
 export class ViewEditProviderComponent implements OnInit {
-  viewEditProvider: any = {};
+  viewEditProvider: IProvider; // any = {};
   dialogResult = "";
-  isDisabled: boolean = true;
-  newSvcCode: any = {};
-  newShift: any = {};
+  //isDisabled: boolean = true;
+  //newSvcCode: any = {};
+  //newShift: any = {};
 
-  constructor() { }
+  constructor( ) { }
 
   ngOnInit() {    
     
   }
 
-  changeToEditable() {
-    this.isDisabled = false;
-  }
+  //changeToEditable() {
+  //  this.isDisabled = false;
+  //}
 
-  addShift() {
-    this.viewEditProvider.providerAvailableShifts.push(this.newShift);
-    this.newShift = {};
-  }
+  //addShift() {
+  //  this.viewEditProvider.providerAvailableShifts.push(this.newShift);
+  //  this.newShift = {};
+  //}
 
-  addSvcCode() {
-    console.log(this.newSvcCode);
-    this.viewEditProvider.providerSvcCodes.push(this.newSvcCode);
-    this.newSvcCode = {};
-  }
+  //addSvcCode() {
+  //  console.log(this.newSvcCode);
+  //  this.viewEditProvider.providerSvcCodes.push(this.newSvcCode);
+  //  this.newSvcCode = {};
+  //}
 
-  removeSvcCode(svCode) {
-    alert(svCode);
-    this.viewEditProvider.providerSvcCodes.splice(svCode);
-  }
+  //removeSvcCode(svCode) {
+  //  alert(svCode);
+  //  this.viewEditProvider.providerSvcCodes.splice(svCode);
+  //}
 
-  removeShift(shift) {
-    this.viewEditProvider.providerAvailableShifts.splice(shift);
-  }
+  //removeShift(shift) {
+  //  this.viewEditProvider.providerAvailableShifts.splice(shift);
+  //}
 
 }
