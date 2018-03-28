@@ -3,7 +3,8 @@ import { IProvider, IProviderAvailableShifts, IProviderSvcCodes } from '../share
 import { ProvidersService } from './provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { HttpClientModule } from '@angular/common/http'; import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { ModalComponent } from '../modal/modal.component';
 import { ModalContent } from '../modal/modalContent';
 import { NewProviderFormComponent } from './new-provider-form/new-provider-form.component';

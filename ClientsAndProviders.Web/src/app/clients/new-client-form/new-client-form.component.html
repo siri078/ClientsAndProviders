@@ -1,0 +1,21 @@
+<mat-dialog-content>
+  <div>
+    <!--removed form tag and replaced w/ div tag,  it was giving errors-->
+    <h2>Add New Client</h2>
+    <table class="table table-bordered table-striped table-hover">
+      <!--TODO: create form without a table-->
+      <tr>
+        <td align="right">&nbsp;FirstName</td>
+        <td><input type="text" name="FirstName" [(ngModel)]="newClient.FirstName"></td>
+        <td align="right">&nbsp;LastName</td>
+        <td><input type="text" name="LastName" [(ngModel)]="newClient.LastName"></td>
+      </tr>
+      <tr>
+        <td colspan="4" style="text-align: center">
+          <button type="button" class="btn btn-warning" (click)="cancelNewProvider()">Cancel</button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-primary" (click)="saveClient(newClient)">Save New Client</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  </mat-dialog-content>

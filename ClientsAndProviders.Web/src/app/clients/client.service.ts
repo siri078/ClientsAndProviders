@@ -36,8 +36,9 @@ export class ClientsService{
         return this.cItems;
     }
     
-    addClient(provider: IClient){
-        this.cItems.push(provider);
+    addClient(provider: IClient) {
+      alert('made it to the service call');
+      this.cItems.push(provider);
         console.log(this.cItems);
     }
 

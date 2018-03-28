@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using ClientAndProviders.Web.Api.ApiResponse;
 using ClientAndProviders.Web.Api.Models;
+using Newtonsoft.Json;
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 
@@ -95,6 +97,7 @@ namespace ClientAndProviders.Web.Api.Controllers
 
 				try
 				{
+					StringContent content = new StringContent(JsonConvert.SerializeObject(provider), Encoding.UTF8, "application/json");
 					db.SaveChanges();
 				}
 				catch (Exception ex)

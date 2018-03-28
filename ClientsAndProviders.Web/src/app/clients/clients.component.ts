@@ -2,23 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { IClient, IClientShiftAssignments, IClientSvcCodes } from '../shared/interfaces';
 import { ClientsService } from './client.service';
 import { ToastrService } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../modal/modal.component';
+import { NewClientFormComponent } from './new-client-form/new-client-form.component';
 
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css']
+  styleUrls: ['./clients.component.css'],
+  providers: [ModalComponent]
 })
 export class ClientsComponent implements OnInit {
   clients: IClient[];
-  clientShiftAssignments: IClientShiftAssignments[];
-  clientSvcCodes: IClientSvcCodes[];
+  //clientShiftAssignments: IClientShiftAssignments[];
+  //clientSvcCodes: IClientSvcCodes[];
 
   loading = false;
   total = 0;
   page = 1;
   limit = 20;
 
-  constructor(private _clientsService: ClientsService, private toastr: ToastrService) {}
+  constructor(public dialog1: MatDialog, private dialog: ModalComponent, private _clientsService: ClientsService, private toastr: ToastrService) {}
   
   ngOnInit() {
     this.getClients();
@@ -43,24 +49,10 @@ export class ClientsComponent implements OnInit {
     this.getClients();
   }
   
-  //showEditClientForm(client: IClient){
-    
-  //  if(!client) {
-  //    this.clientForm = false;
-  //    return;
-  //  }
-  //  this.editClientForm = true;
-  //  this.editedClient = clone(client);
-    
-  //}
-  //showAddClientForm(){
-  //  //resets form if its an edited client
-  //  if (this.clients.length){
-  //    this.newClient = {};
-  //  }
-  //  this.clientForm = true;
-  //  this.isNewForm = true;    
-  //}
+  
+  showAddClientForm() {    
+    this.dialog.openModal(NewClientFormComponent);
+  }
 
   //saveClient(client: IClient){
   //  if(this.isNewForm) {

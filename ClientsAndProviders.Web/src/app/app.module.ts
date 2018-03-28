@@ -36,6 +36,7 @@ import { ProviderShiftsNotScheduledComponent } from './provider-shifts-not-sched
 import { ClientsComponent } from './clients/clients.component';
 import { ClientsAssignedComponent } from './clients-assigned/clients-assigned.component';
 import { ClientsUnassignedComponent } from './clients-unassigned/clients-unassigned.component';
+import { NewClientFormComponent } from './clients/new-client-form/new-client-form.component';
 
 @NgModule({
   imports: [BrowserModule,
@@ -65,9 +66,10 @@ import { ClientsUnassignedComponent } from './clients-unassigned/clients-unassig
     ClientsAssignedComponent,
     ClientsUnassignedComponent,
     CallbackPipe,
-    FilterPipe
+    FilterPipe,
+    NewClientFormComponent
   ],
-  entryComponents: [ModalComponent, NewProviderFormComponent, ViewEditProviderComponent],
+  entryComponents: [ModalComponent, NewProviderFormComponent,NewClientFormComponent, ViewEditProviderComponent],
   providers: [ProvidersService, ProviderShiftScheduledServiceService, ProviderShiftNotScheduledServiceService, HttpClientModule, ClientsService],
   bootstrap: [AppComponent]
 })
